@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft AI Presentation Templates</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Red+Hat+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================
+       MAI Design Language - Design Tokens
+       Slide: 1920 x 1080 (16:9)
+       ======================================== */
+
+    :root {
+      /* Colors */
+      --mai-primary-dark-1: #72675b;
+      --mai-primary-dark-2: #5f4e41;
+      --mai-primary-dark-3: #3b230e;
+      --mai-primary-light-1: #fef9ed;
+      --mai-yellow-1: #ffeecc;
+
+      /* Fonts */
+      --mai-font-serif: 'EB Garamond', Georgia, serif;
+      --mai-font-sans: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mai-font-mono: 'Red Hat Mono', Consolas, monospace;
+
+      /* Spacing (based on 1920px) */
+      --mai-gap-24: 1.25%;   /* 24px / 1920 */
+      --mai-gap-32: 1.667%;  /* 32px / 1920 */
+
+      /* Corner Radius */
+      --mai-radius: 5px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--mai-font-sans);
+      background: #1a1a1a;
+      padding: 40px;
+    }
+
+    h1.page-title {
+      color: white;
+      text-align: center;
+      margin-bottom: 48px;
+      font-family: var(--mai-font-serif);
+      font-size: 32px;
+      font-weight: 400;
+    }
+
+    .slide-container {
+      max-width: 960px;
+      margin: 0 auto 60px;
+    }
+
+    .slide-label {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 12px;
+      font-family: var(--mai-font-mono);
+      font-size: 13px;
+    }
+
+    /* ========================================
+       Base Slide (16:9)
+       Use container queries for proper scaling
+       ======================================== */
+
+    .mai-slide {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      container-type: inline-size;
+      container-name: slide;
+    }
+
+    /* ========================================
+       Typography - use cqw (container query width)
+       Base: 1920px canvas width
+
+       MAI Design Language Font Specs:
+       - Bradford LL: Serif display font (Regular=400, Book=450)
+       - Segoe Sans: Sans-serif body font
+       - Red Hat Mono: Monospace captions
+       ======================================== */
+
+    /* Header Large: Bradford LL Regular, 180px, weight 400, line-height 0.85, letter-spacing -4% */
+    .mai-header-large {
+      font-family: var(--mai-font-serif);
+      font-size: 9.375cqw;  /* 180px / 1920 */
+      font-weight: 400;
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+    }
+
+    /* Header: Bradford LL Regular, 120px, weight 400, line-height 0.85, letter-spacing -4% */
+    .mai-header {
+      font-family: var(--mai-font-serif);
+      font-size: 6.25cqw;  /* 120px / 1920 */
+      font-weight: 400;
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+    }
+
+    /* Title Serif Large: Bradford LL Book, 80px, weight 450, line-height 0.95, letter-spacing -4% */
+    .mai-title-serif-large {
+      font-family: var(--mai-font-serif);
+      font-size: 4.167cqw;  /* 80px / 1920 */
+      font-weight: 450;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    /* Title Serif: Bradford LL Book, 46px, weight 450, line-height 1.0, letter-spacing -3% */
+    .mai-title-serif {
+      font-family: var(--mai-font-serif);
+      font-size: 2.396cqw;  /* 46px / 1920 */
+      font-weight: 450;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    /* Title: Segoe Sans Small Regular, 46px, weight 400, line-height 0.9, letter-spacing -3% */
+    .mai-title {
+      font-family: var(--mai-font-sans);
+      font-size: 2.396cqw;  /* 46px / 1920 */
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+    }
+
+    /* Body Large: Segoe Sans Small Regular, 36px, weight 400, line-height 1.2, letter-spacing -3% */
+    .mai-body-large {
+      font-family: var(--mai-font-sans);
+      font-size: 1.875cqw;  /* 36px / 1920 */
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    /* Body: Segoe Sans Small Regular, 28px, weight 400, line-height 1.3, letter-spacing -2% */
+    .mai-body {
+      font-family: var(--mai-font-sans);
+      font-size: 1.458cqw;  /* 28px / 1920 */
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+
+    /* Body Small: Segoe Sans Text Regular, 24px, weight 400, line-height 1.4, letter-spacing -2% */
+    .mai-body-small {
+      font-family: var(--mai-font-sans);
+      font-size: 1.25cqw;  /* 24px / 1920 */
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+
+    /* Caption Large: Red Hat Mono Regular, 28px, weight 400, line-height 1.2, letter-spacing -3% */
+    .mai-caption-large {
+      font-family: var(--mai-font-mono);
+      font-size: 1.458cqw;  /* 28px / 1920 */
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    /* Caption: Red Hat Mono Regular, 16px, weight 400, line-height 1.2, letter-spacing 0 */
+    .mai-caption {
+      font-family: var(--mai-font-mono);
+      font-size: 0.833cqw;  /* 16px / 1920 */
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    /* ========================================
+       Footer: bottom 37px (3.43%), left 64px (3.33%)
+       ======================================== */
+
+    .mai-footer {
+      position: absolute;
+      bottom: 3.43%;
+      left: 3.33%;
+      right: 3.33%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ========================================
+       Divider Line
+       ======================================== */
+
+    .mai-divider {
+      border: none;
+      border-top: 1px solid currentColor;
+      opacity: 0.3;
+      width: 100%;
+    }
+
+    /* ========================================
+       Avatar - use cqw for proper scaling
+       80px / 1920 = 4.167cqw
+       ======================================== */
+
+    .mai-avatar {
+      width: 4.167cqw;
+      height: 4.167cqw;
+      border-radius: 50%;
+      border: 0.208cqw solid var(--mai-primary-light-1); /* 4px / 1920 */
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .mai-avatar img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .mai-avatar-stack {
+      display: flex;
+    }
+
+    .mai-avatar-stack .mai-avatar {
+      margin-right: -0.625cqw; /* -12px / 1920 */
+    }
+
+    .mai-avatar-stack .mai-avatar:nth-child(1) { z-index: 3; }
+    .mai-avatar-stack .mai-avatar:nth-child(2) { z-index: 2; }
+    .mai-avatar-stack .mai-avatar:nth-child(3) { z-index: 1; }
+
+    /* ========================================
+       Image - 2x assets scale to fit canvas
+       Images are exported at 2x, so we use
+       object-fit: cover to fill container
+       and maintain aspect ratio
+       ======================================== */
+
+    .mai-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: var(--mai-radius);
+    }
+
+    /* Image container - ensures proper sizing */
+    .mai-image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: var(--mai-radius);
+    }
+
+    /* Background image style - for full bleed backgrounds */
+    .mai-bg-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* Avatar images - circular crop */
+    .mai-avatar img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="page-title">Microsoft AI Presentation Templates</h1>
+
+  <!-- ==========================================
+       1. Cover Slide (封面页)
+       Figma: 1:101
+       - Logo: top 5%, left 3.33%, size 3.96% x 3.15%
+       - Title: left 64px (3.33%), top 43.75% - 98.5px, width 1539px (80.16%)
+       - Footer: bottom 36px (3.33%)
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">1. Cover Slide (封面页)</p>
+    <div class="mai-slide">
+      <!-- Background -->
+      <img src="MAI Design Skill/asset/Images/background_1.png" alt="" class="mai-bg-image">
+
+      <!-- MAI Logo: top 5%, left 3.33% -->
+      <div style="position: absolute; top: 5%; left: 3.33%; width: 3.96%; height: 3.15%;">
+        <svg viewBox="0 0 76 34" fill="none" style="width: 100%; height: 100%;">
+          <text x="0" y="28" fill="#ffeecc" font-family="'EB Garamond', serif" font-size="28" font-weight="400">MAI</text>
+        </svg>
+      </div>
+
+      <!-- Title: left 3.33%, top calc(43.75% - 9.12%), width 80.16% -->
+      <div style="position: absolute; left: 3.33%; top: 34.63%; width: 80.16%; color: var(--mai-yellow-1);">
+        <p class="mai-header-large">MAI Presentation</p>
+        <p class="mai-header-large">Template</p>
+      </div>
+
+      <!-- Footer -->
+      <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       2. Agenda Slide - Dark (议程页)
+       Figma: 1:157
+       - Title: left 64px (3.33%), vertically centered, width 829px (43.18%)
+       - Topics: left 58.33%, vertically centered, width 740px (38.54%), gap 24px
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">2. Agenda Slide - Dark (议程页 - 深色)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-dark-1); color: var(--mai-yellow-1);">
+      <!-- Title -->
+      <div style="position: absolute; left: 3.33%; top: 50%; transform: translateY(-50%); width: 43.18%;">
+        <h1 class="mai-header-large">Agenda</h1>
+      </div>
+
+      <!-- Topics: left 58.33%, width 38.54% -->
+      <div style="position: absolute; left: 58.33%; top: 50%; transform: translateY(-50%); width: 38.54%; display: flex; flex-direction: column; gap: 1.25cqw;">
+        <p class="mai-body-large">Topic one</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Topic two</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Topic three</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Topic four</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Topic five</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Topic six</p>
+      </div>
+
+      <!-- Footer -->
+      <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       3. Agenda Slide - Accent (议程页 - 强调色)
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">3. Agenda Slide - Accent (议程页 - 强调色)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-dark-3); color: var(--mai-yellow-1);">
+      <div style="position: absolute; left: 3.33%; top: 50%; transform: translateY(-50%); width: 43.18%;">
+        <h1 class="mai-header-large">Agenda</h1>
+      </div>
+
+      <div style="position: absolute; left: 58.33%; top: 50%; transform: translateY(-50%); width: 38.54%; display: flex; flex-direction: column; gap: 1.25cqw;">
+        <p class="mai-body-large">Performance update</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Strategic update</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Copilot</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Bing</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Edge</p>
+        <hr class="mai-divider">
+        <p class="mai-body-large">Shopping</p>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       4. Section Title Slide (章节标题页)
+       Figma: 1:208
+       - Content: left 64px (3.33%), top 43.75%+54px, width 84%, gap 24px
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">4. Section Title Slide (章节标题页)</p>
+    <div class="mai-slide">
+      <!-- Background -->
+      <img src="MAI Design Skill/asset/Images/Section_1.png" alt="" class="mai-bg-image">
+
+      <!-- Content: top 43.75% + 5% = 48.75% -->
+      <div style="position: absolute; left: 3.33%; top: 48.75%; width: 84.27%; color: var(--mai-yellow-1); display: flex; flex-direction: column; gap: 1.25cqw;">
+        <p class="mai-caption-large">Team name</p>
+        <h1 class="mai-header-large">Section title</h1>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       5. Divider Slide (分隔页)
+       Figma: 1:236
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">5. Divider Slide (分隔页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-yellow-1); color: var(--mai-primary-dark-2);">
+      <p class="mai-header" style="position: absolute; left: 3.33%; top: 50%; transform: translateY(-50%); width: 84%;">
+        Divider slide
+      </p>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       6. Content with Image Slide (内容+图片页)
+       Figma: 1:261
+       - Content: left 64px (3.33%), vertically centered, width 796px (41.46%), gap 24px
+       - Image: left calc(50%+25px) = 51.3%, top 55px (5.09%), width 896px (46.67%), height 940px (87.04%)
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">6. Content with Image Slide (内容+图片页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-light-1); color: var(--mai-primary-dark-3);">
+      <!-- Text Content -->
+      <div style="position: absolute; left: 3.33%; top: 50%; transform: translateY(-50%); width: 41.46%; display: flex; flex-direction: column; gap: 1.25cqw;">
+        <h1 class="mai-header">Craft Deep Dive</h1>
+        <p class="mai-title-serif" style="font-style: italic;">with Mike Davidson</p>
+      </div>
+
+      <!-- Image: left 51.3%, top 5.09%, width 46.67%, height 87.04% -->
+      <div class="mai-image-container" style="position: absolute; left: 51.3%; top: 5.09%; width: 46.67%; height: 87.04%; mix-blend-mode: multiply;">
+        <img src="MAI Design Skill/asset/Images/image placeholder 01.png" alt="" class="mai-image">
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-3);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       7. Team Showcase Slide (团队展示页)
+       Figma: 1:312
+       - Content: left 64px (3.33%), top 100px (9.26%), width 1790px (93.23%)
+       - gap 32px = 1.667cqw, gap 24px = 1.25cqw
+       - Text body width: 1170px (60.94%)
+       - Avatars: 80px each, -12px margin
+       - Images: 2 images, aspect 883:600
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">7. Team Showcase Slide (团队展示页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-light-1); color: var(--mai-primary-dark-2);">
+      <!-- Content Container: left 3.33%, top 9.26%, width 93.23% -->
+      <div style="position: absolute; left: 3.33%; top: 9.26%; width: 93.23%; display: flex; flex-direction: column; gap: 1.667cqw;">
+
+        <!-- Header Row -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1.667cqw;">
+          <!-- Text -->
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 1.25cqw;">
+            <p class="mai-caption-large">Team name</p>
+            <h2 class="mai-title">Title goes here</h2>
+            <p class="mai-body" style="width: 60.94%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+
+          <!-- Avatar Stack -->
+          <div class="mai-avatar-stack" style="padding-right: 0.625cqw;">
+            <div class="mai-avatar"><img src="MAI Design Skill/asset/Images/image placeholder 02.png" alt=""></div>
+            <div class="mai-avatar"><img src="MAI Design Skill/asset/Images/image placeholder 03.png" alt=""></div>
+            <div class="mai-avatar"><img src="MAI Design Skill/asset/Images/image placeholder 04.png" alt=""></div>
+          </div>
+        </div>
+
+        <!-- Image Row: aspect 883:600, gap 24px = 1.25cqw -->
+        <div style="display: flex; gap: 1.25cqw;">
+          <div class="mai-image-container" style="flex: 1; aspect-ratio: 883 / 600;">
+            <img src="MAI Design Skill/asset/Images/image placeholder 05.png" alt="" class="mai-image">
+          </div>
+          <div class="mai-image-container" style="flex: 1; aspect-ratio: 883 / 600;">
+            <img src="MAI Design Skill/asset/Images/image placeholder 06.png" alt="" class="mai-image">
+          </div>
+        </div>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       8. Four Image Grid Slide (四图网格页)
+       Figma: 1:357
+       - Text: left 64px (3.33%), top 100px (9.26%), width 385px (20.05%), height 880px (81.48%)
+       - Grid: left calc(16.67%+166px) = 25.32%, vertically centered, width 1375px (71.61%), height 880px, gap 32px
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">8. Four Image Grid Slide (四图网格页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-light-1); color: var(--mai-primary-dark-2);">
+      <!-- Text Sidebar -->
+      <div style="position: absolute; left: 3.33%; top: 9.26%; width: 20.05%; height: 81.48%; display: flex; flex-direction: column; gap: 1.667cqw;">
+        <h1 class="mai-title-serif">Core products and experiences</h1>
+        <p class="mai-body-small" style="flex: 1;">Our major consumer AI products include Copilot, Bing, GroupMe, Edge, and MSN. We also have teams working on Data, Security, Privacy, Monetization, Health, Responsible AI, Commerce, and Microsoft Advertising. Our mission is to build state of the art AI models, and create an AI companion for everyone.</p>
+      </div>
+
+      <!-- Image Grid: left 25.32%, vertically centered, width 71.61%, height 81.48% -->
+      <div style="position: absolute; left: 25.32%; top: 50%; transform: translateY(-50%); width: 71.61%; height: 81.48%; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1.667cqw;">
+        <div class="mai-image-container">
+          <img src="MAI Design Skill/asset/Images/image placeholder 07.png" alt="" class="mai-image">
+        </div>
+        <div class="mai-image-container">
+          <img src="MAI Design Skill/asset/Images/image placeholder 08.png" alt="" class="mai-image">
+        </div>
+        <div class="mai-image-container">
+          <img src="MAI Design Skill/asset/Images/image placeholder 09.png" alt="" class="mai-image">
+        </div>
+        <div class="mai-image-container">
+          <img src="MAI Design Skill/asset/Images/image placeholder 10.png" alt="" class="mai-image">
+        </div>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       9. Kudos Slide (表彰页)
+       Figma: 1:412
+       - Title "Kudos": left 64px (3.33%), top 100px (9.26%), 80px font
+       - 3 columns with text + image in flex container
+       - gap 20px = 1.04cqw
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">9. Kudos Slide (表彰页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-light-1); color: var(--mai-primary-dark-2);">
+      <!-- Title: 80px font, top 9.26% -->
+      <h1 class="mai-title-serif-large" style="position: absolute; left: 3.33%; top: 9.26%; width: 31.25%;">Kudos</h1>
+
+      <!-- Column 1: left 3.33% -->
+      <div style="position: absolute; left: 3.33%; top: 22.22%; width: 22.03%; display: flex; flex-direction: column; gap: 1.04cqw;">
+        <p class="mai-caption">Operations</p>
+        <p class="mai-title-serif">Coworkers name</p>
+        <p class="mai-body-small">In a few words, share why you appreciate them and the positive impact they made.</p>
+        <!-- Image 1 -->
+        <div class="mai-image-container" style="width: 100%; aspect-ratio: 1; margin-top: 1.04cqw;">
+          <img src="MAI Design Skill/asset/Images/image placeholder 11.png" alt="" class="mai-image">
+        </div>
+      </div>
+
+      <!-- Column 2: centered in slide -->
+      <div style="position: absolute; left: 50%; top: 22.22%; width: 22.03%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 1.04cqw;">
+        <p class="mai-caption">Product Brand</p>
+        <p class="mai-title-serif">Coworkers name</p>
+        <p class="mai-body-small">In a few words, share why you appreciate them and the positive impact they made.</p>
+        <!-- Image 2 -->
+        <div class="mai-image-container" style="width: 100%; aspect-ratio: 1; margin-top: 1.04cqw;">
+          <img src="MAI Design Skill/asset/Images/image placeholder 12.png" alt="" class="mai-image">
+        </div>
+      </div>
+
+      <!-- Column 3: right side -->
+      <div style="position: absolute; left: 74.64%; top: 22.22%; width: 22.03%; display: flex; flex-direction: column; gap: 1.04cqw;">
+        <p class="mai-caption">Design Systems</p>
+        <p class="mai-title-serif">Coworkers name</p>
+        <p class="mai-body-small">In a few words, share why you appreciate them and the positive impact they made.</p>
+        <!-- Image 3 -->
+        <div class="mai-image-container" style="width: 100%; aspect-ratio: 1; margin-top: 1.04cqw;">
+          <img src="MAI Design Skill/asset/Images/image placeholder 13.png" alt="" class="mai-image">
+        </div>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       10. Image Collage Slide (图片拼贴页)
+       Figma: 1:1027
+       Positions from Figma (percentages)
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">10. Image Collage Slide (图片拼贴页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-yellow-1); color: var(--mai-primary-dark-3);">
+      <!-- Scattered Images -->
+      <div class="mai-image-container" style="position: absolute; top: 27.13%; left: 0; width: 19.11%; height: 40.09%; mix-blend-mode: luminosity;">
+        <img src="MAI Design Skill/asset/Images/image placeholder 14.png" alt="" class="mai-image">
+      </div>
+      <div class="mai-image-container" style="position: absolute; top: 18.61%; left: 28.59%; width: 12.5%; height: 22.96%; filter: blur(3px);">
+        <img src="MAI Design Skill/asset/Images/image placeholder 15.png" alt="" class="mai-image">
+      </div>
+      <div class="mai-image-container" style="position: absolute; top: 0; left: 52.71%; width: 9.58%; height: 21.3%;">
+        <img src="MAI Design Skill/asset/Images/image placeholder 16.png" alt="" class="mai-image">
+      </div>
+      <div class="mai-image-container" style="position: absolute; top: 23.89%; left: 74.22%; width: 21.3%; height: 28.43%;">
+        <img src="MAI Design Skill/asset/Images/image placeholder 17.png" alt="" class="mai-image">
+      </div>
+      <div class="mai-image-container" style="position: absolute; top: 50.28%; left: 66.98%; width: 11.82%; height: 26.48%; filter: blur(10px);">
+        <img src="MAI Design Skill/asset/Images/image placeholder 18.png" alt="" class="mai-image">
+      </div>
+      <div class="mai-image-container" style="position: absolute; top: 63.52%; left: 28.59%; width: 7.24%; height: 11.11%; filter: blur(10px);">
+        <img src="MAI Design Skill/asset/Images/image placeholder 19.png" alt="" class="mai-image">
+      </div>
+      <div class="mai-image-container" style="position: absolute; top: 69.07%; left: 33.54%; width: 19.48%; height: 22.32%;">
+        <img src="MAI Design Skill/asset/Images/image placeholder 20.png" alt="" class="mai-image">
+      </div>
+
+      <!-- Centered Text: width 652px (33.96%) -->
+      <div style="position: absolute; left: 50%; top: calc(50% - 10.56%); transform: translateX(-50%); width: 33.96%; text-align: center;">
+        <p class="mai-title-serif-large">For 50 years, Microsoft <em>tools</em> have shaped the world</p>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-3);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       11. Image Gallery Slide (图片画廊页)
+       Layout: Title with underline + 4x2 Grid
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">11. Image Gallery Slide (图片画廊页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-light-1); color: var(--mai-primary-dark-2);">
+      <!-- Title with underline -->
+      <div style="position: absolute; left: 3.23%; top: 9.26%; right: 3.23%; border-bottom: 1px solid var(--mai-primary-dark-2); padding: 3.7% 0;">
+        <h1 class="mai-title-serif">Gallery</h1>
+      </div>
+
+      <!-- Image Grid: 4 columns x 2 rows -->
+      <div style="position: absolute; top: 31.5%; left: 3.33%; right: 3.33%; bottom: 9.26%; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0.833cqw;">
+        <div class="mai-image-container"><img src="MAI Design Skill/asset/Images/image placeholder 21.png" alt="" class="mai-image"></div>
+        <div class="mai-image-container"><img src="MAI Design Skill/asset/Images/image placeholder 22.png" alt="" class="mai-image"></div>
+        <div class="mai-image-container"><img src="MAI Design Skill/asset/Images/image placeholder 23.png" alt="" class="mai-image"></div>
+        <div class="mai-image-container"><img src="MAI Design Skill/asset/Images/image placeholder 24.png" alt="" class="mai-image"></div>
+        <div class="mai-image-container"><img src="MAI Design Skill/asset/Images/image placeholder 25.png" alt="" class="mai-image"></div>
+        <div class="mai-image-container"><img src="MAI Design Skill/asset/Images/image placeholder 26.png" alt="" class="mai-image"></div>
+        <div class="mai-image-container"><img src="MAI Design Skill/asset/Images/image placeholder 27.png" alt="" class="mai-image"></div>
+        <div class="mai-image-container"><img src="MAI Design Skill/asset/Images/image placeholder 28.png" alt="" class="mai-image"></div>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       12. Statement Slide (陈述页)
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">12. Statement Slide (陈述页)</p>
+    <div class="mai-slide">
+      <img src="MAI Design Skill/asset/Images/Statement Slide_1.png" alt="" class="mai-bg-image">
+
+      <div style="position: absolute; left: 3.33%; top: 50%; transform: translateY(-50%); width: 60%; color: var(--mai-yellow-1); display: flex; flex-direction: column; gap: 1.25cqw;">
+        <p class="mai-caption-large">Subtitle</p>
+        <h1 class="mai-title-serif-large">A powerful statement that captures the essence of your message</h1>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       13. Two Column Text Slide (双栏文字页)
+       Figma: 1:585 (Content Page - writing)
+       - Divider line at top
+       - Left: Title Serif (46px, 530px width)
+       - Right: Body Small (24px, 1040px width)
+       - Gap: 168px between columns
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">13. Two Column Text Slide (双栏文字页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-light-1); color: var(--mai-primary-dark-2);">
+      <!-- Content with divider -->
+      <div style="position: absolute; left: 3.33%; top: 22.22%; width: 93.65%; display: flex; flex-direction: column; gap: 2.08cqw;">
+        <!-- Divider Line -->
+        <hr style="border: none; border-top: 1px solid var(--mai-primary-dark-2); width: 100%; opacity: 0.3;">
+
+        <!-- Two Columns -->
+        <div style="display: flex; gap: 8.75cqw;">
+          <!-- Left: Title -->
+          <p class="mai-title-serif" style="width: 27.6%; flex-shrink: 0;">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </p>
+          <!-- Right: Body -->
+          <div class="mai-body-small" style="flex: 1;">
+            <p style="margin-bottom: 1.25cqw;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla elementum vel purus vel aliquam. Duis dictum quam arcu, a viverra augue hendrerit sed. In finibus ornare risus, eu ornare tellus pellentesque ut. Pellentesque sit amet felis mattis, consectetur massa nec, malesuada turpis.</p>
+            <p style="margin-bottom: 1.25cqw;">Sed tempor placerat nisi, a hendrerit erat faucibus eu. Nam sollicitudin, tellus non porta finibus, velit turpis tempus orci, at venenatis nunc velit vel ex. Suspendisse eleifend mattis massa et dictum. Aenean posuere neque sollicitudin consectetur volutpat. Nullam lobortis velit eget mattis varius. Quisque id condimentum metus.</p>
+            <p style="margin-bottom: 1.25cqw;">Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce congue nec orci sit amet pharetra. Nunc tristique massa purus, et venenatis justo tempor at. Integer gravida nisl urna, et dignissim nisl auctor nec. Ut vitae rutrum enim, et interdum libero.</p>
+            <p>Vestibulum accumsan dui sed pulvinar lacinia. Proin iaculis arcu nulla, vitae placerat nisl tincidunt vitae. Sed eleifend pulvinar tortor a vulputate.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       14. Text with Images Slide (文字+图片混排页)
+       Figma: 1:644 (Content Page - images & writing)
+       - Yellow background
+       - Left title + right body text at top
+       - Two images at bottom (different positions)
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">14. Text with Images Slide (文字+图片混排页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-yellow-1); color: var(--mai-primary-dark-3);">
+      <!-- Content with divider -->
+      <div style="position: absolute; left: 3.33%; top: 9.26%; width: 93.65%; display: flex; flex-direction: column; gap: 2.08cqw;">
+        <!-- Divider Line -->
+        <hr style="border: none; border-top: 1px solid var(--mai-primary-dark-3); width: 100%; opacity: 0.3;">
+
+        <!-- Two Columns -->
+        <div style="display: flex; gap: 8.75cqw;">
+          <!-- Left: Title -->
+          <p class="mai-title-serif" style="width: 27.6%; flex-shrink: 0;">
+            MAI's Superintelligence Team is built to pursue a bold new vision: Humanist Superintelligence.
+          </p>
+          <!-- Right: Body -->
+          <div class="mai-body-small" style="flex: 1;">
+            <p style="margin-bottom: 1.25cqw;">This is our answer to what I see as the most important question of our time - how we ensure the most advanced forms of AI remain in service of humanity. I want MAI to be not just the best organization at building AI in the world, but also the one most grounded in making a tangible difference.</p>
+            <p style="margin-bottom: 1.25cqw;">Humanist superintelligence is advanced AI designed to remain controllable, aligned, and firmly in service to humanity. It's AI that amplifies human potential, not replaces it. Our mission is to build the safest, most capable systems that keep humans in control and deliver real-world impact.</p>
+            <p style="margin-bottom: 1.25cqw;">This is what the small but exceptional team here is committed to building. We're going to do this right. Please do reach out if this sounds like a project for you.</p>
+            <p style="font-style: italic;">Mustafa Suleyman, CEO of Microsoft AI</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image 1: Left bottom -->
+      <div class="mai-image-container" style="position: absolute; left: 3.33%; top: 36.11%; width: 18.02%; height: 32.04%;">
+        <img src="MAI Design Skill/asset/Images/image placeholder 29.png" alt="" class="mai-image">
+      </div>
+
+      <!-- Image 2: Right bottom -->
+      <div class="mai-image-container" style="position: absolute; left: 36.09%; top: 59.44%; width: 64.22%; height: 21.95%;">
+        <img src="MAI Design Skill/asset/Images/image placeholder 30.png" alt="" class="mai-image">
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-3);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       15. Analysis/Status Slide (分析/状态页)
+       Figma: 1:605 (Content Page - analysis page)
+       - Large title at top
+       - 3 rows with label + bullet points
+       - Dividers between rows
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">15. Analysis/Status Slide (分析/状态页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-yellow-1); color: var(--mai-primary-dark-3);">
+      <!-- Title -->
+      <h1 class="mai-title-serif-large" style="position: absolute; left: 3.33%; top: 9.26%; width: 76.67%;">Add title here</h1>
+
+      <!-- Content Rows -->
+      <div style="position: absolute; left: 3.33%; top: 22.22%; width: 93.65%; display: flex; flex-direction: column; gap: 1.667cqw;">
+        <!-- Row 1 -->
+        <div style="display: flex; gap: 8.75cqw;">
+          <p class="mai-body-large" style="width: 20.83%; flex-shrink: 0; font-family: var(--mai-font-serif);">What's going well</p>
+          <ul class="mai-body-small" style="flex: 1; margin: 0; padding-left: 1.875cqw;">
+            <li>Bing growing +16% YoY non-TAC revenue in Q4 with volume +15% YoY in US and 14% YoY globally</li>
+            <li>Including API, Q4 Bing non-TAC revenue growing +21% YoY, with API increasing 10x to nearly $400M ARR</li>
+            <li>Bing quality fundamentals continue to improve e.g. OneDCG, WPSBS/RSAT, perf, live site, stability</li>
+            <li>Launched Copilot Search on 4/4 before Google AI Mode with evals competitive with Perplexity Pro</li>
+          </ul>
+        </div>
+
+        <!-- Divider -->
+        <hr style="border: none; border-top: 1px solid var(--mai-primary-dark-3); width: 100%; opacity: 0.3;">
+
+        <!-- Row 2 -->
+        <div style="display: flex; gap: 8.75cqw;">
+          <p class="mai-body-large" style="width: 20.83%; flex-shrink: 0; font-family: var(--mai-font-serif);">What isn't going so well</p>
+          <ul class="mai-body-small" style="flex: 1; margin: 0; padding-left: 1.875cqw;">
+            <li>Bing DAU risk in hitting 15% YoY target given lower Windows sales and AI search competition</li>
+            <li>Bing grounding for Copilots continues to struggle for certain segments like Local and Sports</li>
+            <li>Bing continues to show significantly more ads than G in SERP and Image Vertical</li>
+          </ul>
+        </div>
+
+        <!-- Divider -->
+        <hr style="border: none; border-top: 1px solid var(--mai-primary-dark-3); width: 100%; opacity: 0.3;">
+
+        <!-- Row 3 -->
+        <div style="display: flex; gap: 8.75cqw;">
+          <p class="mai-body-large" style="width: 20.83%; flex-shrink: 0; font-family: var(--mai-font-serif);">Our key missions</p>
+          <ul class="mai-body-small" style="flex: 1; margin: 0; padding-left: 1.875cqw;">
+            <li>Copilot Search delivers best-in-class generative and traditional search</li>
+            <li>AI Generation Tools for Bing and Copilot Search out innovate the competition</li>
+            <li>Speedbird: New ultra-fast grounding stack</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-3);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       16. Article with Image Slide (文章+图片页)
+       Figma: 1:655 (Content Page - images & writing)
+       - Large image on left (full height)
+       - Title + author + long body text on right
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">16. Article with Image Slide (文章+图片页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-primary-light-1); color: var(--mai-primary-dark-2);">
+      <!-- Image: Left side, full height -->
+      <div class="mai-image-container" style="position: absolute; left: 3.44%; top: 0; width: 29.01%; height: 84.07%;">
+        <img src="MAI Design Skill/asset/Images/image placeholder 31.png" alt="" class="mai-image">
+      </div>
+
+      <!-- Content: Right side -->
+      <div style="position: absolute; left: 39.69%; top: 9.26%; width: 54.11%; display: flex; flex-direction: column; gap: 2.92cqw;">
+        <!-- Title + Author -->
+        <div style="display: flex; flex-direction: column; gap: 1.25cqw;">
+          <p class="mai-title-serif">The Path to Medical Superintelligence</p>
+          <p class="mai-caption">Dominic King & Harsha Nori</p>
+        </div>
+
+        <!-- Body Content -->
+        <div style="display: flex; flex-direction: column; gap: 1.25cqw;">
+          <p class="mai-body" style="font-weight: 400;">Medical Case Challenges and Benchmarks</p>
+          <div class="mai-body-small">
+            <p style="margin-bottom: 1.25cqw;">To practice medicine in the United States, physicians need to pass the United States Medical Licensing Examination (USMLE), a rigorous and standardized assessment of clinical knowledge and decision making. USMLE questions were among the earliest benchmarks used to evaluate AI systems in medicine.</p>
+            <p style="margin-bottom: 1.25cqw;">In just three years, generative AI has advanced to the point of scoring near-perfect scores on the USMLE and similar exams. But these tests primarily rely on multiple-choice questions, which favor memorization over deep understanding.</p>
+            <p>At Microsoft AI, we're working to advance and evaluate clinical reasoning capabilities. To move beyond the limitations of multiple-choice questions, we've focused on sequential diagnosis, a cornerstone of real-world medical decision making.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       17. Quote Slide (引用/长文页)
+       Figma: 1:472 (Content Page - quote)
+       - Full background image
+       - Large quote text overlay
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">17. Quote Slide (引用/长文页)</p>
+    <div class="mai-slide">
+      <!-- Background Image -->
+      <img src="MAI Design Skill/asset/Images/Statement Slide_2.png" alt="" class="mai-bg-image">
+
+      <!-- Quote Text -->
+      <p class="mai-title-serif-large" style="position: absolute; left: 3.33%; top: 6.48%; width: 85.36%; color: var(--mai-yellow-1);">
+        At Microsoft AI, we are a collective of builders, thinkers, and creators working to design technology that earns trust, amplifies human potential, and makes life meaningfully better.
+      </p>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       18. Vertical Text Slide (垂直文字页)
+       Figma: 1:269 (Content Page - writing)
+       - Yellow background
+       - Small label at bottom left
+       - 4 vertical rotated large text columns
+       ========================================== -->
+  <div class="slide-container">
+    <p class="slide-label">18. Vertical Text Slide (垂直文字页)</p>
+    <div class="mai-slide" style="background-color: var(--mai-yellow-1); color: var(--mai-primary-dark-2);">
+      <!-- Label at bottom left -->
+      <p class="mai-body-large" style="position: absolute; left: 3.33%; bottom: 12%; font-family: var(--mai-font-serif); font-weight: 700;">
+        MAI Must-wins
+      </p>
+
+      <!-- Vertical Text Columns -->
+      <div style="position: absolute; right: 3.33%; top: 2.5%; bottom: 9.26%; display: flex; gap: 1.667cqw; align-items: flex-end;">
+        <!-- Column 1 -->
+        <div style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);">
+          <p class="mai-header" style="font-size: 6.14cqw; white-space: nowrap;">AI Capabilities</p>
+        </div>
+        <!-- Column 2 -->
+        <div style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);">
+          <p class="mai-header" style="font-size: 6.14cqw; white-space: nowrap;">Mobile-first GenZ</p>
+        </div>
+        <!-- Column 3 -->
+        <div style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);">
+          <p class="mai-header" style="font-size: 6.14cqw; white-space: nowrap;">Our Windows Users</p>
+        </div>
+        <!-- Column 4 -->
+        <div style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);">
+          <p class="mai-header" style="font-size: 6.14cqw; white-space: nowrap;">Ad Revenue Streams</p>
+        </div>
+      </div>
+
+      <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+        <span>Microsoft AI</span>
+        <span>Month Day, Year</span>
+        <span>Cycle X</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

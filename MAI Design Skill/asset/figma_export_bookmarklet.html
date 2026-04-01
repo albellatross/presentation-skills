@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Figma Slides 导出助手</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #0066ff;
+            padding-bottom: 10px;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #0066ff;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        .button {
+            display: inline-block;
+            background: #0066ff;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 10px 10px 10px 0;
+        }
+        .button:hover {
+            background: #0052cc;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>📤 Figma Slides 批量导出指南</h1>
+        
+        <div class="warning">
+            <strong>⚠️ 重要提示：</strong><br>
+            由于 Figma Slides 文件不支持 REST API 访问，需要通过 Figma Desktop App 手动导出。<br>
+            本指南将帮助您快速完成批量导出。
+        </div>
+
+        <h2>方法 1: 使用 Figma Desktop App（推荐）</h2>
+        
+        <div class="step">
+            <strong>步骤 1：打开文件</strong><br>
+            点击下方按钮在 Figma 中打开文件：<br>
+            <a href="https://www.figma.com/slides/VhGLPdQrI8yGPSgo0emmyz" class="button" target="_blank">
+                🔗 打开 Figma Slides
+            </a>
+            <a href="file:///Users/aa123/Documents/presentation%20skills/MAI%20Design%20Skill/asset/Images" class="button">
+                📁 打开输出文件夹
+            </a>
+        </div>
+
+        <div class="step">
+            <strong>步骤 2：选择要导出的幻灯片</strong><br>
+            在 Figma 左侧面板中：<br>
+            • 按住 <code>Cmd</code> (Mac) 或 <code>Ctrl</code> (Windows)<br>
+            • 依次点击要导出的幻灯片/页面<br>
+            • 可以一次性选择所有幻灯片
+        </div>
+
+        <div class="step">
+            <strong>步骤 3：批量导出</strong><br>
+            在右侧属性面板中：<br>
+            1. 找到 <code>Export</code> 部分<br>
+            2. 点击 <code>+</code> 添加导出设置<br>
+            3. 选择格式：<code>PNG</code><br>
+            4. 选择缩放：<code>2x</code> (高清)<br>
+            5. 点击 <code>Export [N] layers</code><br>
+            6. 选择保存位置：<code>/Users/aa123/Documents/presentation skills/MAI Design Skill/asset/Images</code>
+        </div>
+
+        <div class="success">
+            <strong>✅ 导出完成后：</strong><br>
+            所有图片将保存在 <code>Images</code> 文件夹中<br>
+            文件名将使用 Figma 中的图层名称
+        </div>
+
+        <h2>方法 2: 使用快捷键快速导出</h2>
+        
+        <div class="step">
+            <strong>快捷键导出流程：</strong><br>
+            1. 选择幻灯片/元素<br>
+            2. 按 <code>Cmd/Ctrl + Shift + E</code> 快速导出<br>
+            3. 选择保存位置和格式<br>
+            4. 重复以上步骤导出其他内容
+        </div>
+
+        <h2>推荐的导出内容</h2>
+        
+        <div class="step">
+            <strong>📄 幻灯片页面：</strong><br>
+            • Cover (封面页)<br>
+            • 所有内容页面<br>
+            • 模板布局示例<br><br>
+
+            <strong>🎨 视觉元素：</strong><br>
+            • Logo 和品牌图标<br>
+            • 背景图案和纹理<br>
+            • 装饰性插图<br><br>
+
+            <strong>🧩 UI 组件：</strong><br>
+            • Badge 组件<br>
+            • Label 组件<br>
+            • Card 组件<br>
+            • Icon 图标库
+        </div>
+
+        <h2>文件命名建议</h2>
+        
+        <div class="step">
+            导出后，建议按以下规则重命名：<br><br>
+            <code>slide_01_cover.png</code> - 封面<br>
+            <code>slide_02_hero.png</code> - Hero页面<br>
+            <code>slide_03_content.png</code> - 内容页<br>
+            <code>component_badge_yellow.png</code> - Badge组件<br>
+            <code>component_label_green.png</code> - Label组件<br>
+            <code>icon_copilot_100px.png</code> - 图标<br>
+            <code>bg_warm_beige.png</code> - 背景
+        </div>
+
+        <div class="success">
+            <strong>💡 提示：</strong><br>
+            如果一次性导出所有幻灯片，Figma 会自动使用图层名称作为文件名。<br>
+            您可以在导出后批量重命名，或者在 Figma 中先重命名图层。
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🔧 技术限制说明</h2>
+        <p>
+            <strong>为什么不能用 API 自动导出？</strong><br>
+            Figma Slides 是一种特殊的文件类型，目前不支持通过 REST API 的 <code>/v1/files/{key}</code> 端点访问。
+            尝试访问会返回：<code>{"status": 400, "err": "File type not supported by this endpoint"}</code>
+        </p>
+        <p>
+            <strong>已验证的方案：</strong><br>
+            ✅ Figma Desktop App 手动导出<br>
+            ✅ Figma 网页版手动导出<br>
+            ❌ REST API 自动导出（不支持）<br>
+            ❌ Figma Plugin API（Slides 文件限制）
+        </p>
+    </div>
+</body>
+</html>
