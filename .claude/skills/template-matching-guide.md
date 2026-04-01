@@ -76,11 +76,20 @@
 - ❌ 带解释的转场（应使用 Divider）
 - ❌ 需要配图说明的转场
 
+**⚠️ 背景图片颜色规则:**
+| 背景图片 | 色调 | 文字颜色 |
+|---------|------|---------|
+| `Section_1.png` | 深色 | 浅色 `#ffeecc` |
+| `Section_2.png` | 深色 | 浅色 `#ffeecc` |
+| `Section_3.png` | **浅色** | **深色** `#3b230e` |
+| `Section_4.png` | **浅色** | **深色** `#3b230e` |
+
 **HTML 关键结构:**
 ```
 背景: Section_*.png (专用)
 标签: mai-caption-large
 标题: mai-header-large, top 48.75%
+文字颜色: 根据背景深浅选择 (见上表)
 ```
 
 ---
@@ -239,10 +248,21 @@
 ```
 
 **HTML 关键结构 (17B):**
+
+**⚠️ Statement Slide 背景图片颜色规则:**
+| 背景图片 | 色调 | 文字颜色 |
+|---------|------|---------|
+| `Statement Slide_1.png` | **浅色** | **深色** `#3b230e` |
+| `Statement Slide_2.png` | 深色 | 浅色 `#ffeecc` |
+| `Statement Slide_3.png` | 深色 | 浅色 `#ffeecc` |
+| `Statement Slide_4.png` | 深色 | 浅色 `#ffeecc` |
+| `Statement Slide_5.png` | 深色 | 浅色 `#ffeecc` |
+
 ```
 背景: Statement Slide_*.png (专用)
 引言: mai-title-serif-large, top 6.48%, width 85.36%
 来源/署名: mai-caption (可选)
+文字颜色: 根据背景深浅选择 (见上表)
 ```
 
 ---

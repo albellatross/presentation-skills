@@ -680,6 +680,36 @@ Located in `MAI Design Skill/asset/Images/`:
 | **Section_** | `Section_1.png` - `Section_4.png` | **Section Title Page ONLY** (Template #4) |
 | **Statement Slide_** | `Statement Slide_1.png` - `Statement Slide_5.png` | **Quote/Statement Pages ONLY** (Templates #12, #17) |
 
+### Light-Colored Background Images (浅色背景 - 必须用深色文字)
+
+**⚠️ 以下背景图片颜色较浅，必须使用深色文字 (#3b230e)，禁止使用浅色文字！**
+
+| 文件名 | 背景色调 | 文字颜色 |
+|--------|---------|---------|
+| `Statement Slide_1.png` | 浅色 | **深色** `#3b230e` |
+| `Section_3.png` | 浅色 | **深色** `#3b230e` |
+| `Section_4.png` | 浅色 | **深色** `#3b230e` |
+
+**深色背景图片 (使用浅色文字 #ffeecc):**
+- `Statement Slide_2.png` - `Statement Slide_5.png`
+- `Section_1.png`, `Section_2.png`
+
+**HTML 示例 - 浅色背景:**
+```html
+<!-- Statement Slide_1.png, Section_3.png, Section_4.png -->
+<p class="mai-title-serif-large" style="color: var(--mai-primary-dark-3);">
+  深色文字内容
+</p>
+```
+
+**HTML 示例 - 深色背景:**
+```html
+<!-- Statement Slide_2-5.png, Section_1-2.png -->
+<p class="mai-title-serif-large text-readable" style="color: var(--mai-yellow-1);">
+  浅色文字内容
+</p>
+```
+
 ### Placeholder Images
 - `image placeholder 01.png` - `image placeholder 38.png`
 - Use for: Content areas, galleries, article images, team photos, etc.
@@ -690,8 +720,10 @@ Located in `MAI Design Skill/asset/Images/`:
 ```
 ✅ CORRECT:
 - Cover slide → cover_01.mp4 (or cover_02.mp4, cover_03.mp4, cover_04.mp4 - randomly selected)
-- Section Title → Section_2.png  
-- Quote slide → Statement Slide_3.png
+- Section Title → Section_2.png (深色背景 → 浅色文字)
+- Section Title → Section_3.png (浅色背景 → 深色文字)
+- Quote slide → Statement Slide_3.png (深色背景 → 浅色文字)
+- Quote slide → Statement Slide_1.png (浅色背景 → 深色文字)
 - Article image → image placeholder 05.png
 
 ❌ WRONG:
@@ -699,6 +731,8 @@ Located in `MAI Design Skill/asset/Images/`:
 - Cover slide → Statement Slide_1.png (WRONG! Use cover_*.mp4 videos)
 - Quote slide → background_3.png (WRONG! Use Statement Slide_*)
 - Section Title → background_2.png (WRONG! Use Section_*)
+- Statement Slide_1.png + 浅色文字 (WRONG! 浅色背景必须用深色文字)
+- Section_3.png + 浅色文字 (WRONG! 浅色背景必须用深色文字)
 ```
 
 ---
