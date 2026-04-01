@@ -7,18 +7,254 @@ Convert Word documents or outlines into polished, interactive HTML presentations
 ## Workflow
 
 ```
-Word Document / Outline → Analyze Content → Select Templates → Generate HTML → Live Presentation
+Word Document / Outline → Extract Story → Build Narrative Arc → Design Information Hierarchy → Select Templates → Generate HTML
 ```
 
 ## Usage
 
 When user provides content (Word doc, outline, bullet points), generate a presentation by:
 
-1. **Analyzing the content structure** - Identify sections, key points, data, quotes
-2. **Mapping to appropriate templates** - Select from 18 MAI templates (Figma source)
-3. **Applying visual variety** - Ensure no two consecutive slides use the same template style
-4. **Generating interactive HTML** - Include animations, navigation, responsive scaling
-5. **VERIFY positions** - Cross-check against `templates/slide-templates.md` for exact Figma positions
+1. **Extracting the story** - What is the core narrative? What transformation does it describe?
+2. **Building narrative arc** - Structure as: Setup → Tension → Discovery → Resolution → Action
+3. **Designing information hierarchy** - What are the 3-5 key insights that MUST land with the audience?
+4. **Mapping to appropriate templates** - Use the Template Matching Guide (`.claude/skills/template-matching-guide.md`) to select templates based on content **PURPOSE**, not just content TYPE
+5. **Creating rhythm** - Alternate between dense information and breathing room
+6. **Generating interactive HTML** - Include animations, navigation, responsive scaling
+7. **VERIFY positions** - Cross-check against `templates/slide-templates.md` for exact Figma positions
+
+**CRITICAL:** Before selecting a template, ask:
+- What is this content's **purpose**? (inform? persuade? showcase? celebrate?)
+- What is its **information hierarchy level**? (L1 insight? L2 evidence? L3 context?)
+- Does it need **visual support**? (data viz? image? pure text?)
+
+See **Template Matching Guide** for the full decision tree and common error patterns.
+
+---
+
+## Storytelling Framework
+
+### The Golden Rule
+**A presentation is not a document export.** Documents inform; presentations persuade. Every slide must earn its place in the narrative arc.
+
+### Narrative Arc Structure
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  1. SETUP          2. TENSION        3. DISCOVERY              │
+│  "Here's the       "Here's the       "Here's what              │
+│   context"          problem"          we found"                │
+│                                                                 │
+│  4. INSIGHT        5. RESOLUTION     6. ACTION                 │
+│  "Here's what      "Here's the       "Here's what              │
+│   it means"         opportunity"      to do"                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Map your content to this arc BEFORE selecting templates:**
+
+| Arc Phase | Purpose | Typical Templates |
+|-----------|---------|-------------------|
+| Setup | Establish context, set the stage | Cover, Agenda, Content+Image |
+| Tension | Introduce problem/question | Section Title, Statement (question form) |
+| Discovery | Present findings with evidence | Quote, Big Number, Analysis, Data Cards |
+| Insight | Distill meaning from findings | Statement (answer form), Divider |
+| Resolution | Show the opportunity/solution | Vertical Text, Content+Image |
+| Action | Clear next steps | Analysis (numbered), Thank You |
+
+### Information Hierarchy
+
+**Not all information is equal.** Before generating slides, categorize every piece of content:
+
+| Level | What It Is | Visual Treatment | Example |
+|-------|------------|------------------|---------|
+| **L1: Core Insight** | The 3-5 things audience MUST remember | Big Number, Statement slide, full-bleed | "90% of features never get used" |
+| **L2: Supporting Evidence** | Data/quotes that prove L1 | Quote slides, Data Cards | User quote about bloat |
+| **L3: Context** | Background needed to understand L1 | Body text, smaller type | Methodology, participant demographics |
+| **L4: Detail** | Nice-to-know, can be cut | Footnotes, or omit entirely | Specific edge cases |
+
+**Rules:**
+- Every presentation needs 3-5 L1 insights (no more, no less)
+- L1 content gets its own slide with maximum visual impact
+- L2 supports L1 — never let supporting evidence overshadow the insight
+- L3 should be minimal — if audience needs lots of context, they're not ready for this presentation
+- L4 often belongs in an appendix or leave-behind document, not the presentation
+
+### Breathing Room & Rhythm
+
+**Dense → Breathe → Dense → Breathe**
+
+Presentations need rhythm. After 2-3 slides of dense information, insert a "breathing" slide:
+
+| Slide Type | Information Density | Purpose |
+|------------|---------------------|---------|
+| **Statement Slide** | LOW - One idea | Let a key insight land; give audience time to absorb |
+| **Section Title** | LOW - Topic only | Signal transition; mental reset |
+| **Quote Slide** | MEDIUM - One voice | Humanize data; emotional connection |
+| **Big Number** | LOW - One data point | Visual punctuation; memorable anchor |
+| **Analysis/Detail** | HIGH - Multiple items | Deliver substance |
+| **Data Cards** | HIGH - Comparison | Show patterns |
+
+**Pattern Example:**
+```
+1. Cover (LOW)
+2. Question/Setup (LOW) ← Breathing
+3. Methodology (MEDIUM)
+4. Section Title (LOW) ← Breathing
+5. Finding + Evidence (HIGH)
+6. User Quote (MEDIUM)
+7. Big Number Insight (LOW) ← Breathing
+8. Section Title (LOW) ← Breathing
+9. Finding + Evidence (HIGH)
+10. Statement Insight (LOW) ← Breathing
+...
+```
+
+**Anti-patterns to avoid:**
+- ❌ 5 dense slides in a row (audience fatigue)
+- ❌ 3 breathing slides in a row (feels empty/slow)
+- ❌ Putting L3 context on full Statement slides (wasted emphasis)
+- ❌ Burying L1 insights in bullet lists (missed impact)
+
+### Emphasis Techniques
+
+**Make important things LOOK important:**
+
+| Technique | Use For | Example |
+|-----------|---------|---------|
+| **Big Number** | Quantitative insights | "9-10 out of 10" rating |
+| **Statement Slide** | Qualitative insights | "Invisible until invoked" |
+| **Highlight Color** | Key words in text | `<span class="highlight">inertia</span>` |
+| **Contrast Cards** | Comparisons | Good vs Bad, Before vs After |
+| **Pull Quote** | User voice | Full-bleed quote with attribution |
+| **Numbered Steps** | Sequence/priority | "01, 02, 03, 04" recommendations |
+
+**What NOT to emphasize:**
+- Methodology details (necessary but not memorable)
+- Participant demographics (context, not insight)
+- Feature lists without framing (data without meaning)
+- Everything (if everything is bold, nothing is bold)
+
+---
+
+## Data Visualization Components
+
+### MAI Progress Bar (Pill-shaped Capsule)
+
+The standard progress bar follows Figma's pill-shaped capsule design with rounded ends.
+
+**CSS Classes:**
+
+| Class | Purpose |
+|-------|---------|
+| `.mai-progress` | Container - pill shape with border and padding |
+| `.mai-progress-dark` | Dark variant for image/dark backgrounds |
+| `.mai-progress-fill` | Fill bar - default dark brown |
+| `.mai-progress-fill-accent` | Gold accent fill (#e5b85c) |
+| `.mai-progress-fill-light` | Light gradient fill for dark backgrounds |
+| `.mai-progress-labeled` | Container with label above bar |
+| `.mai-progress-label` | Flex container for label text and value |
+| `.mai-progress-label-text` | Label text (left side) |
+| `.mai-progress-label-value` | Value text (right side, serif font) |
+| `.mai-progress-label-subtext` | Optional subtext below bar (e.g., "+10% from March") |
+
+**Basic Usage (in cards on dark bg):**
+
+```html
+<div class="mai-progress mai-progress-dark">
+  <div class="mai-progress-fill mai-progress-fill-accent animate-bar" style="--bar-width: 85%;"></div>
+</div>
+```
+
+**With Label (on light bg):**
+
+```html
+<div class="mai-progress-labeled">
+  <div class="mai-progress-label">
+    <span class="mai-progress-label-text">Task Completion</span>
+    <span class="mai-progress-label-value" style="color: var(--mai-yellow-3);">85%</span>
+  </div>
+  <div class="mai-progress">
+    <div class="mai-progress-fill mai-progress-fill-accent animate-bar" style="--bar-width: 85%;"></div>
+  </div>
+  <span class="mai-progress-label-subtext">+12% from last month</span>
+</div>
+```
+
+**Fill Variants:**
+
+| Variant | Class | Use Case |
+|---------|-------|----------|
+| Default (dark brown) | `.mai-progress-fill` | Neutral metrics on light bg |
+| Gold accent | `.mai-progress-fill-accent` | Highlighted/positive metrics |
+| Light gradient | `.mai-progress-fill-light` | Metrics on dark backgrounds |
+
+**Animation:**
+- Add `animate-bar` class to `.mai-progress-fill`
+- Set `--bar-width` CSS variable for target width
+- Bar animates from 0 to target width over 1.2s with delay
+
+### Big Numbers
+
+For single metrics that need maximum impact:
+
+```html
+<div class="animate-in">
+  <p class="data-number" style="font-size: 10cqw; color: var(--mai-yellow-3);">80%</p>
+  <p class="mai-body" style="color: var(--mai-primary-dark-2);">of fairy tales use<br>"good vs evil" structure</p>
+</div>
+```
+
+| Class | Size | Use Case |
+|-------|------|----------|
+| `.data-number` | 8cqw | Large hero numbers |
+| `.data-number-medium` | 5cqw | Secondary numbers, numbered lists |
+
+### Data Cards
+
+For comparison metrics in card format:
+
+```html
+<div class="data-card animate-in">
+  <div style="display: flex; align-items: center; gap: 1cqw; margin-bottom: 1.5cqw;">
+    <div class="icon-circle icon-animated" style="background: rgba(229, 184, 92, 0.25);">
+      <!-- Icon SVG -->
+    </div>
+    <p class="mai-title-serif" style="color: var(--mai-yellow-1);">Card Title</p>
+  </div>
+  <p class="mai-title-serif" style="color: var(--mai-yellow-3);">Metric Label</p>
+  <p class="mai-body-small" style="color: var(--mai-yellow-1); opacity: 0.8;">Description text</p>
+  <div class="mai-progress mai-progress-dark" style="margin-top: 1.2cqw;">
+    <div class="mai-progress-fill mai-progress-fill-accent animate-bar" style="--bar-width: 85%;"></div>
+  </div>
+</div>
+```
+
+**Card Variants:**
+- `.data-card` - Dark/transparent for image backgrounds
+- `.data-card-light` - Light variant for light backgrounds
+
+### Comparison Bars (Horizontal)
+
+For side-by-side comparisons:
+
+```html
+<div class="comparison-bar">
+  <span class="mai-body" style="width: 8cqw;">Label</span>
+  <div class="comparison-bar-fill" style="width: 75%; background: var(--mai-yellow-3);">
+    <span class="mai-caption" style="color: var(--mai-primary-dark-3);">75%</span>
+  </div>
+</div>
+```
+
+### When to Use Each
+
+| Data Type | Component | Example |
+|-----------|-----------|---------|
+| Single hero metric | Big Number | "90% satisfaction" |
+| Multiple metrics | Progress Bars | Feature usage comparison |
+| Metric with context | Data Card | Character trait with description |
+| Before/After | Comparison Bars | Performance improvement |
+| Trend/Change | Progress with subtext | "85% (+12% from March)" |
 
 ---
 
@@ -134,7 +370,31 @@ When user provides content (Word doc, outline, bullet points), generate a presen
 
 ## Content Analysis Rules
 
-When analyzing user content, identify:
+When analyzing user content, follow this sequence:
+
+### Step 1: Extract the Story
+Ask yourself:
+- What is the central question or problem?
+- What did we discover?
+- What does it mean?
+- What should happen next?
+
+### Step 2: Identify L1 Insights
+Find the 3-5 things that audience MUST remember. These become your Statement slides and Big Number slides.
+
+### Step 3: Map Supporting Evidence
+For each L1 insight, identify:
+- What data/quote proves this? (L2)
+- What context is needed to understand it? (L3)
+
+### Step 4: Build the Arc
+Arrange in narrative order:
+```
+Setup → Tension → Discovery → Insight → Resolution → Action
+```
+
+### Step 5: Add Breathing Room
+After every 2-3 dense slides, insert a breathing slide (Statement, Section Title, or Quote).
 
 ### Content Type → Template Mapping
 
@@ -164,6 +424,16 @@ When analyzing user content, identify:
 2. **Balance light and dark backgrounds** - aim for 40/60 or 50/50 split
 3. **Use background images** on at least 40% of slides (Templates: 1, 4, 12, 17)
 4. **Break long content** into multiple slides (max 3-4 points per slide)
+5. **Follow Dense → Breathe rhythm** - no more than 3 dense slides without a breathing slide
+
+### Slide Purpose Categories
+
+| Category | Templates | When to Use |
+|----------|-----------|-------------|
+| **Breathing (LOW density)** | Statement, Section Title, Divider, Cover | After 2-3 dense slides; for L1 insights |
+| **Voice (MEDIUM density)** | Quote, Big Number | To humanize data or anchor a key metric |
+| **Substance (HIGH density)** | Analysis, Two Column, Article+Image, Data Cards | To deliver detailed findings |
+| **Visual (VARIABLE density)** | Image Grid, Gallery, Collage | To show not tell |
 
 ### Background Color Distribution
 
@@ -420,12 +690,22 @@ Assistant should:
 
 ## Checklist Before Generating
 
+### Story & Structure
+- [ ] Identified the central question/problem the presentation answers
+- [ ] Found 3-5 L1 insights (no more, no less)
+- [ ] Each L1 insight has a dedicated high-impact slide (Statement/Big Number)
+- [ ] Content follows narrative arc (Setup → Tension → Discovery → Insight → Resolution → Action)
+- [ ] Dense → Breathe rhythm maintained (no more than 3 dense slides in a row)
+
+### Visual Design
 - [ ] Each slide uses exact Figma positions from `templates/slide-templates.md`
 - [ ] Each slide has only 1-3 key points (not overcrowded)
 - [ ] No two consecutive slides use same template type
 - [ ] Background images used on 40%+ slides (templates 1, 4, 12, 17)
 - [ ] Colors follow light/dark text pairing rules
 - [ ] All text is readable (contrast check)
+
+### Polish
 - [ ] Animations are assigned appropriately
 - [ ] Footer is consistent across slides (bottom 3.43%, left/right 3.33%)
 - [ ] Navigation works (keyboard, touch, mouse wheel)
