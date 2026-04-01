@@ -598,20 +598,65 @@ Use inline SVG for maximum control over size and color:
 
 ---
 
-## Image Assets - STRICT Usage Rules
+## Image & Video Assets - STRICT Usage Rules
 
 Located in `MAI Design Skill/asset/Images/`:
+
+### Cover Page Video Backgrounds (REQUIRED for Cover Pages)
+
+**CRITICAL: Cover pages MUST use video backgrounds from `cover_*.mp4` files.**
+
+| File Name | Description |
+|-----------|-------------|
+| `cover_01.mp4` | Cover video background 1 |
+| `cover_02.mp4` | Cover video background 2 |
+| `cover_03.mp4` | Cover video background 3 |
+| `cover_04.mp4` | Cover video background 4 |
+
+**Usage Rule:** When generating a Cover page (Template #1), randomly select ONE video from the `cover_*.mp4` files.
+
+**HTML Implementation for Video Background:**
+
+```html
+<div class="slide active" data-slide="1">
+  <div class="slide-inner">
+    <!-- Video Background -->
+    <video class="mai-bg-video" autoplay muted loop playsinline>
+      <source src="MAI Design Skill/asset/Images/cover_01.mp4" type="video/mp4">
+    </video>
+    <!-- Content overlay -->
+    <div class="text-backdrop" style="position: absolute; left: 3.33%; top: 34.63%;">
+      <h1 class="mai-header-large text-readable">Title Here</h1>
+    </div>
+  </div>
+</div>
+```
+
+**Required CSS for Video Background:**
+
+```css
+.mai-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+```
 
 ### Background Image Categories (MUST follow these rules)
 
 | Image Type | File Names | ONLY Use For |
 |------------|------------|--------------|
-| **background_** | `background_1.png` - `background_6.png` | **Cover Page ONLY** (Template #1) |
+| **cover_** | `cover_01.mp4` - `cover_04.mp4` | **Cover Page ONLY** (Template #1) - VIDEO |
+| **background_** | `background_1.png` - `background_6.png` | **DEPRECATED for Cover** - Use for fallback only |
 | **Section_** | `Section_1.png` - `Section_4.png` | **Section Title Page ONLY** (Template #4) |
 | **Statement Slide_** | `Statement Slide_1.png` - `Statement Slide_5.png` | **Quote/Statement Pages ONLY** (Templates #12, #17) |
 
 ### Placeholder Images
-- `image placeholder 01.png` - `image placeholder 31.png`
+- `image placeholder 01.png` - `image placeholder 38.png`
 - Use for: Content areas, galleries, article images, team photos, etc.
 - Can be used on ANY template that has image containers
 
@@ -619,13 +664,14 @@ Located in `MAI Design Skill/asset/Images/`:
 
 ```
 ✅ CORRECT:
-- Cover slide → background_1.png
+- Cover slide → cover_01.mp4 (or cover_02.mp4, cover_03.mp4, cover_04.mp4 - randomly selected)
 - Section Title → Section_2.png  
 - Quote slide → Statement Slide_3.png
 - Article image → image placeholder 05.png
 
 ❌ WRONG:
-- Cover slide → Statement Slide_1.png (WRONG! Use background_*)
+- Cover slide → background_1.png (WRONG! Use cover_*.mp4 videos)
+- Cover slide → Statement Slide_1.png (WRONG! Use cover_*.mp4 videos)
 - Quote slide → background_3.png (WRONG! Use Statement Slide_*)
 - Section Title → background_2.png (WRONG! Use Section_*)
 ```
