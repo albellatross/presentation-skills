@@ -82,6 +82,14 @@ Setup → Tension → Discovery → Insight → Resolution → Action
 - Dark bg → Light text (#ffeecc)
 - Accent: #e5b85c (gold) for highlights and L1 emphasis
 
+### Color Consistency Rules (NEW)
+- **Section内统一** — 同一章节的slides保持视觉连贯
+- **禁止互补色** — 不要红+绿、蓝+橙等刺眼组合
+- **禁止颜色跳跃** — 相邻slides不要剧烈变色
+- **Accessibility** — 确保对比度≥4.5:1，深色背景加 `.text-readable`
+
+**详细颜色规范见:** `.claude/skills/template-matching-guide.md`
+
 ## Data Visualization
 
 ### Progress Bars (Pill-shaped Capsule)
