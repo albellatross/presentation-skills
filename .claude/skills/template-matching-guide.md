@@ -195,23 +195,50 @@
 
 #### C1. Quote Slide (引用页) - 他人声音
 **模板编号:** #17  
-**功能:** 展示用户引言、专家观点、名人名言  
+**功能:** 展示用户引言、专家观点、名人名言、引发思考的问题  
 **信息密度:** MEDIUM (1段引言)  
-**视觉:** 全屏背景图 + 引言文字  
+**视觉:** 两种变体可选  
 **呼吸类型:** 呼吸  
 
+**⚠️ 这是最容易与 Statement 混淆的模板！关键区分：**
+- **Quote (#17)** = 引用**他人**说的话，或引发思考的问题
+- **Statement (#12)** = 表达**你自己**的观点或研究结论
+
+**视觉变体:**
+
+| 变体 | 背景 | 视觉特征 | 使用场景 |
+|------|------|----------|---------|
+| **17A (推荐)** | 纯色 #72675b | 居中文字 + 左右大装饰引号 " " | 用户引言、专家观点、问题 |
+| **17B** | 图片背景 | 左对齐文字 | 氛围感引言、视觉变化需要 |
+
+**17A 视觉特征 (截图中的样式):**
+- 纯色背景: `#72675b`
+- 大装饰性引号: 25cqw 字号，15% 透明度，分布在左上和右下
+- 引言文字: 居中，3cqw 字号，衬线字体
+- 署名 (optional): 居中，下方，70% 透明度
+
 **适用内容:**
-- 用户访谈原话 ("I just want it to work without thinking")
-- 专家观点
+- 用户访谈原话 (P05: "It remembers custom phrases...")
+- 专家观点 (Yibo: "Only 10% of features get used")
 - 领导者/CEO 的话
 - 研究参与者的反馈
+- 引发思考的问题 ("Do people leave Microsoft with less attention to detail?")
 
 **不适用:**
-- ❌ 你自己的观点（应使用 Statement）
+- ❌ 你自己的观点（应使用 Statement #12）
+- ❌ 研究结论（应使用 Statement #12）
 - ❌ 数据陈述（应使用 Big Number）
 - ❌ 长段论述（应使用 Two Column Text）
 
-**HTML 关键结构:**
+**HTML 关键结构 (17A - 推荐):**
+```html
+背景: style="background: var(--mai-primary-dark-1);"
+装饰引号: font-size: 25cqw, color: rgba(255,238,204,0.15)
+引言: 居中, mai-title-serif-large, font-size: 3cqw
+署名: mai-body, opacity: 0.7, "— {{ATTRIBUTION}}"
+```
+
+**HTML 关键结构 (17B):**
 ```
 背景: Statement Slide_*.png (专用)
 引言: mai-title-serif-large, top 6.48%, width 85.36%

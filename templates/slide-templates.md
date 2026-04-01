@@ -735,18 +735,78 @@ All positioning values are extracted directly from demo.html which matches the o
 
 ## 17. Quote Slide (引用页)
 
+**Two variants available:**
+
+### 17A. Quote with Solid Background (纯色背景 - 推荐用于用户/专家引言)
+
+**Figma reference:** 截图中的设计，带装饰性大引号
+- Background: #72675b (solid color)
+- Decorative quotes: Large " " marks in lighter shade
+- Quote text: Centered, serif font, cream color
+- Attribution (optional): Below quote text
+
+```html
+<div class="slide" data-slide="{{N}}">
+  <div class="slide-inner" style="background: var(--mai-primary-dark-1);">
+    
+    <!-- Decorative Opening Quote Mark (left) -->
+    <div class="quote-mark quote-mark-open animate-in" style="position: absolute; left: 5%; top: 20%; font-size: 25cqw; line-height: 1; font-family: var(--mai-font-serif); color: rgba(255, 238, 204, 0.15);">
+      "
+    </div>
+    
+    <!-- Decorative Closing Quote Mark (right) -->
+    <div class="quote-mark quote-mark-close animate-in" style="position: absolute; right: 5%; bottom: 25%; font-size: 25cqw; line-height: 1; font-family: var(--mai-font-serif); color: rgba(255, 238, 204, 0.15);">
+      "
+    </div>
+    
+    <!-- Quote Text - Centered -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70%; text-align: center;">
+      <p class="mai-title-serif-large animate-in stagger-1" style="color: var(--mai-yellow-1); font-size: 3cqw; line-height: 1.3;">
+        "{{QUOTE_TEXT}}"
+      </p>
+      <!-- Optional Attribution -->
+      <p class="mai-body animate-in stagger-2" style="color: var(--mai-yellow-1); opacity: 0.7; margin-top: 2cqw;">
+        — {{ATTRIBUTION}}
+      </p>
+    </div>
+
+    <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
+      <span>{{FOOTER_LEFT}}</span>
+      <span>{{FOOTER_CENTER}}</span>
+      <span>{{FOOTER_RIGHT}}</span>
+    </div>
+  </div>
+</div>
+```
+
+**When to use 17A (Solid Background Quote):**
+- User verbatim quotes from research
+- Expert quotes and testimonials
+- Provocative questions that frame a section
+- Any quote that needs emphasis and breathing room
+
+---
+
+### 17B. Quote with Image Background (图片背景)
+
 **Figma position:**
+- Background: Statement Slide images
 - Quote text: left 3.33%, top 6.48%, width 85.36%
 
 ```html
 <div class="slide" data-slide="{{N}}">
   <div class="slide-inner">
-    <!-- Background Image -->
-    <img src="{{BACKGROUND_IMAGE}}" alt="" class="mai-bg-image">
+    <!-- Background Image - use Statement Slide_*.png -->
+    <img src="MAI Design Skill/asset/Images/Statement Slide_{{1-5}}.png" alt="" class="mai-bg-image">
 
     <!-- Quote Text -->
-    <p class="mai-title-serif-large animate-in" style="position: absolute; left: 3.33%; top: 6.48%; width: 85.36%; color: var(--mai-yellow-1);">
-      {{QUOTE_TEXT}}
+    <p class="mai-title-serif-large text-readable animate-in" style="position: absolute; left: 3.33%; top: 6.48%; width: 85.36%; color: var(--mai-yellow-1);">
+      "{{QUOTE_TEXT}}"
+    </p>
+    
+    <!-- Optional Attribution -->
+    <p class="mai-body text-readable animate-in stagger-1" style="position: absolute; left: 3.33%; top: auto; bottom: 15%; color: var(--mai-yellow-1); opacity: 0.8;">
+      — {{ATTRIBUTION}}
     </p>
 
     <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
@@ -757,6 +817,25 @@ All positioning values are extracted directly from demo.html which matches the o
   </div>
 </div>
 ```
+
+**When to use 17B (Image Background Quote):**
+- Atmospheric or mood-setting quotes
+- When visual variety is needed after several solid-color slides
+- Inspirational or philosophical quotes
+
+---
+
+### Quote vs Statement - 关键区别
+
+| 场景 | 正确模板 | 错误用法 |
+|------|---------|---------|
+| 用户说的原话 (P01: "...") | **Quote (#17)** | ❌ Statement |
+| 专家引言 | **Quote (#17)** | ❌ Statement |
+| 你的核心观点/洞察 | **Statement (#12)** | ❌ Quote |
+| 研究结论 | **Statement (#12)** | ❌ Quote |
+| 引发思考的问题 | **Quote (#17A)** 或 **Statement (#12)** | 取决于是否引用他人 |
+
+**记住:** Quote = 引用他人的话，Statement = 表达你的观点
 
 ---
 

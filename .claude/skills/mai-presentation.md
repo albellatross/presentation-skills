@@ -333,7 +333,7 @@ For side-by-side comparisons:
 
 | # | Template | Background | Figma Key Positions |
 |---|----------|------------|---------------------|
-| 1 | Cover | Image | Title: left 3.33%, top 34.63%, width 80.16% |
+| 1 | Cover | Video (cover_*.mp4) | Title: left 3.33%, top 34.63%, width 80.16% |
 | 2 | Agenda Dark | #72675b | Title: left 3.33%, Topics: left 58.33%, width 38.54% |
 | 3 | Agenda Accent | #3b230e | Same as Dark |
 | 4 | Section Title | Image | Content: left 3.33%, top 48.75%, width 84.27% |
@@ -344,13 +344,38 @@ For side-by-side comparisons:
 | 9 | Kudos | #fef9ed | Cols: left 3.33% / 50% / 74.64%, width 22.03% |
 | 10 | Image Collage | #ffeecc | 7 scattered images with blur effects |
 | 11 | Image Gallery | #fef9ed | Grid: 4x2, gap 0.833cqw |
-| 12 | Statement | Image | Content: left 3.33%, centered, width 60% |
+| 12 | Statement | Image | Content: left 3.33%, centered, width 60% — **你的观点/洞察** |
 | 13 | Two Column Text | #fef9ed | Left: width 27.6%; Gap: 8.75cqw |
 | 14 | Text+Images | #ffeecc | Image1: 18.02%x32.04%; Image2: 64.22%x21.95% |
 | 15 | Analysis | #ffeecc | Labels: width 20.83%, serif font |
 | 16 | Article+Image | #fef9ed | Image: left 3.44%, width 29.01%; Content: left 39.69% |
-| 17 | Quote | Image | Text: left 3.33%, top 6.48%, width 85.36% |
+| 17 | Quote | #72675b 或 Image | 居中，带装饰性大引号 — **引用他人的话** |
 | 18 | Vertical Text | #ffeecc | Font: 6.14cqw, gap 1.667cqw |
+
+### Quote (#17) vs Statement (#12) — 关键区分
+
+**这是最常见的模板误用！必须区分清楚：**
+
+| 内容类型 | 正确模板 | 示例 |
+|---------|---------|------|
+| 用户原话 | **Quote (#17)** | P05: "It remembers custom phrases..." |
+| 专家引言 | **Quote (#17)** | Yibo: "Only 10% of features get used" |
+| 引发思考的问题 | **Quote (#17)** | "Do people leave Microsoft with less attention to detail?" |
+| 你的核心观点 | **Statement (#12)** | "Adoption is driven by inertia, not choice" |
+| 研究结论 | **Statement (#12)** | "AI must be invisible until invoked" |
+| 数据洞察 | **Statement (#12)** | "Feature bloat is the #1 pain point" |
+
+**Quote 模板视觉特征：**
+- 纯色背景 (#72675b) 或图片背景
+- 大装饰性引号 " " 在左右两侧
+- 文字居中
+- 可选的 attribution (— P05, Software Engineer)
+
+**Statement 模板视觉特征：**
+- 图片背景
+- 无装饰性引号
+- 文字左对齐或居中
+- 无 attribution
 
 **Full HTML snippets with exact positions:** See `templates/slide-templates.md`
 
