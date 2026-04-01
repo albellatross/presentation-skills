@@ -1,3 +1,8 @@
+---
+description: Generate MAI Design Language HTML presentations from Word docs or outlines
+user_invocable: true
+---
+
 # MAI Presentation Generator Skill
 
 Convert Word documents or outlines into polished, interactive HTML presentations following the MAI (Microsoft AI) Design Language.
