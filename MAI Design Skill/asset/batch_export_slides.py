@@ -9,7 +9,11 @@ import json
 import os
 import time
 
-FIGMA_TOKEN = os.environ.get('FIGMA_ACCESS_TOKEN', 'YOUR_FIGMA_TOKEN_HERE')
+FIGMA_TOKEN = os.environ.get('FIGMA_ACCESS_TOKEN', '')
+if not FIGMA_TOKEN:
+    print("❌ 请设置环境变量 FIGMA_ACCESS_TOKEN")
+    print("   export FIGMA_ACCESS_TOKEN='your-token-here'")
+    exit(1)
 FILE_KEY = 'VhGLPdQrI8yGPSgo0emmyz'
 OUTPUT_DIR = '/Users/aa123/Documents/presentation skills/MAI Design Skill/asset/Images'
 
