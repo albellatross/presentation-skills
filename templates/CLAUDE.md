@@ -69,25 +69,29 @@ User Content → Extract Story → Build Narrative Arc → Design Hierarchy → 
 │           │   ├── TEMPLATE-MATCHING.md  # Template selection guide
 │           │   ├── SLIDE-TEMPLATES.md    # HTML snippets
 │           │   └── DESIGN-REFERENCE.md   # Colors, typography, motion
-│           └── assets/
+│           └── assets/             # All images, SVGs, videos
 ├── templates/
 │   └── base-template.html          # Base HTML structure
-├── MAI Design Skill/
-│   └── asset/
-│       └── Images/                 # Background & placeholder images
 ├── demo.html                       # Template showcase (reference)
 └── [output].html                   # Generated presentations
 ```
 
 ## Available Images
 
+Located in `.claude/skills/mai-presentation/assets/`:
+
 Background images (for statement/quote slides):
 - `background_1.png` - `background_6.png`
 - `Section_1.png` - `Section_4.png`
 - `Statement Slide_1.png` - `Statement Slide_5.png`
 
+Special assets:
+- `Point.svg` - Timeline node
+- `quote-open.svg`, `quote-close.svg` - Quote decorations
+- `cover_01.mp4` - `cover_06.mp4` - Video backgrounds
+
 Placeholder images (for content areas):
-- `image placeholder 01.png` - `image placeholder 31.png`
+- `image placeholder 01.png` - `image placeholder 38.png`
 
 ## Checklist Before Delivery
 

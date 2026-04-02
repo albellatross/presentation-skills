@@ -21,7 +21,7 @@ Word Document / Outline → Extract Story → Build Narrative Arc → Design Inf
 - **Template selection guide:** `references/TEMPLATE-MATCHING.md`
 - **Design reference:** `references/DESIGN-REFERENCE.md`
 - **Base HTML structure:** `../../../templates/base-template.html`
-- **Image assets:** `../../../MAI Design Skill/asset/Images/`
+- **Image assets:** `assets/`
 
 ## Usage
 
