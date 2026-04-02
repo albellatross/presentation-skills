@@ -180,6 +180,8 @@
 **视觉:** 大字号垂直排列  
 **呼吸类型:** 呼吸  
 
+**⚠️ 阅读性警告:** 此模板阅读性较差，应谨慎使用。优先考虑 Analysis (#15) 布局作为替代。
+
 **适用内容:**
 - 核心价值观 ("Trust / Innovation / Impact")
 - 战略支柱
@@ -190,6 +192,13 @@
 - ❌ 需要解释的概念（每个词无法展开）
 - ❌ 超过 4 个项目
 - ❌ 长短语（每个项目应 ≤3 个词）
+- ❌ 用户目标/功能列表 — **使用 Analysis (#15) 替代**
+
+**替代方案:**
+当内容需要描述或解释时，使用 **Analysis (#15)** 布局：
+- 左侧：标签/关键词 (serif 字体)
+- 右侧：详细描述 (bullet list)
+- 更清晰、更易读
 
 **HTML 关键结构:**
 ```
@@ -215,16 +224,32 @@
 
 **视觉变体:**
 
-| 变体 | 背景 | 视觉特征 | 使用场景 |
-|------|------|----------|---------|
-| **17A (推荐)** | 纯色 #72675b | 居中文字 + 左右大装饰引号 " " | 用户引言、专家观点、问题 |
-| **17B** | 图片背景 | 左对齐文字 | 氛围感引言、视觉变化需要 |
+| 变体 | 背景 | 视觉特征 | 使用场景 | 推荐度 |
+|------|------|----------|---------|--------|
+| **17A (强烈推荐)** | 纯色 #72675b | 居中文字 + 左右大装饰引号 " " | 用户引言、专家观点、问题 | ⭐⭐⭐ |
+| **17B** | 图片背景 | 左对齐文字 | 需要氛围感的引言 | ⭐ |
 
-**17A 视觉特征 (截图中的样式):**
-- 纯色背景: `#72675b`
-- 大装饰性引号: 25cqw 字号，15% 透明度，分布在左上和右下
-- 引言文字: 居中，3cqw 字号，衬线字体
-- 署名 (optional): 居中，下方，70% 透明度
+**17A 精确 Figma 规格 (100% 还原):**
+
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #72675b | `var(--mai-primary-dark-1)` |
+| 装饰引号字号 | 1060px | `55cqw` |
+| 引号透明度 | 20% | `opacity: 0.2` |
+| 引号颜色 | #ffeecc | `var(--mai-yellow-1)` |
+| 左引号位置 | 超出左边界 | `left: -5%; top: 10%` |
+| 右引号位置 | 超出右边界 | `right: -5%; top: 10%` |
+| 引言字号 | 80px | `4.167cqw` |
+| 引言宽度 | 944px | `49%` |
+| 引言位置 | 居中 | `top: 50%; left: 50%; transform: translate(-50%, -50%)` |
+| 行高 | 0.95 | `line-height: 0.95` |
+| 字间距 | -3.2px | `letter-spacing: -0.04em` |
+
+**关键实现要点:**
+- 容器必须 `overflow: hidden` 以裁剪超出的引号
+- 引号从两侧延伸入画面，营造视觉张力
+- 引言紧凑行高 (0.95)，负字间距 (-0.04em)
+- **优点:** 阅读性好、视觉专业、100% Figma 还原
 
 **适用内容:**
 - 用户访谈原话 (P05: "It remembers custom phrases...")
@@ -239,12 +264,24 @@
 - ❌ 数据陈述（应使用 Big Number）
 - ❌ 长段论述（应使用 Two Column Text）
 
-**HTML 关键结构 (17A - 推荐):**
+**HTML 关键结构 (17A - 强烈推荐):**
 ```html
-背景: style="background: var(--mai-primary-dark-1);"
-装饰引号: font-size: 25cqw, color: rgba(255,238,204,0.15)
-引言: 居中, mai-title-serif-large, font-size: 3cqw
-署名: mai-body, opacity: 0.7, "— {{ATTRIBUTION}}"
+<div class="slide-inner" style="background: var(--mai-primary-dark-1); overflow: hidden;">
+  <!-- 左引号 - 超出边界被裁剪 -->
+  <div style="position: absolute; left: -5%; top: 10%; font-size: 55cqw; 
+              line-height: 1; font-family: var(--mai-font-serif); 
+              color: var(--mai-yellow-1); opacity: 0.2;">"</div>
+  <!-- 右引号 -->
+  <div style="position: absolute; right: -5%; top: 10%; font-size: 55cqw; 
+              line-height: 1; font-family: var(--mai-font-serif); 
+              color: var(--mai-yellow-1); opacity: 0.2;">"</div>
+  <!-- 引言 -->
+  <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 49%; text-align: center; color: var(--mai-yellow-1); 
+            font-size: 4.167cqw; line-height: 0.95; letter-spacing: -0.04em;">
+    "{{QUOTE_TEXT}}"
+  </p>
+</div>
 ```
 
 **HTML 关键结构 (17B):**
@@ -568,7 +605,69 @@
 
 ---
 
-### 🔚 H. 收尾类 (Closing)
+### 📅 H. 时间轴与视频类 (Timeline & Video)
+
+#### H1. Timeline Slide (时间轴页)
+**模板编号:** #19  
+**功能:** 展示路线图、里程碑、发展历程  
+**信息密度:** MEDIUM-HIGH (3-5个节点)  
+**视觉:** 水平时间轴，节点交替上下分布  
+**呼吸类型:** 实质  
+
+**适用内容:**
+- 产品路线图 / 发布计划
+- 项目里程碑
+- 历史发展进程
+- 阶段性流程
+
+**不适用:**
+- ❌ 超过 5 个节点（信息过载）
+- ❌ 无时间/顺序关系的内容
+
+**HTML 关键结构:**
+```
+背景: #fef9ed
+标题: mai-title-serif, left 3.23%, top 9.26%
+时间轴线: 水平线 top 50%
+节点: 交替上下分布，金色圆点 1.25cqw (#e5b85c)
+日期: 1.25cqw, font-weight 700
+描述: 0.73cqw, #343434
+```
+
+---
+
+#### H2. Content with Video (文字+视频页)
+**模板编号:** #20  
+**功能:** 展示 Demo 视频、产品演示、教程  
+**信息密度:** LOW (标题 + 视频)  
+**视觉:** 大尺寸视频占主体  
+**呼吸类型:** 可呼吸/可实质  
+
+**适用内容:**
+- Demo 视频 / 产品演示
+- 屏幕录制
+- 原型展示
+- 教程内容
+
+**不适用:**
+- ❌ 需要详细文字说明的内容（应使用 Article+Image）
+- ❌ 静态图片（应使用 Content+Image #6）
+
+**HTML 关键结构:**
+```
+背景: #fef9ed
+标题: mai-title-serif, left 3.33%, top 4%
+视频: left 8.33%, top 12%, width 83.33%, height 83.33%
+圆角: 0.26cqw (5px)
+```
+
+**变体:**
+- **20A (自动播放):** `autoplay muted loop playsinline` — 用于背景/展示
+- **20B (手动播放):** `controls poster` — 用于需要用户控制的场景
+
+---
+
+### 🔚 I. 收尾类 (Closing)
 
 #### H1. Thank You Slide (致谢页)
 **模板编号:** 变体 (类似 Cover)  
@@ -606,7 +705,7 @@
 2. 这是核心洞察(L1)吗？
    ├── 是数字型洞察 → Big Number
    ├── 是观点型洞察 → Statement (#12)
-   ├── 是 3-4 个关键词 → Vertical Text (#18)
+   ├── 是 3-4 个关键词 → Vertical Text (#18) 或 Analysis (#15)
    └── 不确定 → 继续判断
 
 3. 这是引用他人的话吗？
@@ -617,9 +716,14 @@
    ├── 是单一数字 → Big Number
    ├── 是 2-4 个对比指标 → Data Cards
    ├── 是结构化分析 → Analysis (#15)
+   ├── 是时间线/里程碑 → Timeline (#19)
    └── 不是 → 继续判断
 
-5. 这是纯文字论述吗？
+5. 这是视频/演示内容吗？
+   ├── 是 Demo 视频/原型演示 → Content+Video (#20)
+   └── 不是 → 继续判断
+
+6. 这是纯文字论述吗？
    ├── 是深度阅读内容 → Two Column Text (#13)
    ├── 需要装饰性配图 → Text+Images (#14)
    ├── 图片是内容核心 → Article+Image (#16)

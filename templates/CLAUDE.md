@@ -60,12 +60,14 @@ Setup → Tension → Discovery → Insight → Resolution → Action
 |---------|---------|---------|
 | 核心洞察(L1) - 观点型 | Statement (#12) | ❌ Quote (那是引用他人) |
 | 核心洞察(L1) - 数字型 | Big Number | ❌ 文字描述数据 |
-| 引用用户/专家的话 | Quote (#17) | ❌ Statement (那是你的观点) |
+| 引用用户/专家的话 | Quote (#17) - **优先17A纯色版** | ❌ Statement (那是你的观点) |
 | 多指标对比 (2-4个) | Data Cards | ❌ 纯文字列举 |
 | 结构化分析 (优缺点/状态) | Analysis (#15) | ❌ Quote 或 Statement |
 | 深度文字论述 | Two Column (#13) | ❌ 塞进 Quote 页 |
 | 图文并重的案例 | Article+Image (#16) | ❌ 只用 Content+Image |
-| 3-4个并列主题 | Vertical Text (#18) | ❌ 列表形式 |
+| 3-4个并列主题 | Analysis (#15) — **Vertical Text 阅读性差** | ❌ 列表形式 |
+| 路线图/里程碑 | Timeline (#19) | ❌ 纯文字列表 |
+| Demo视频/产品演示 | Content+Video (#20) | ❌ 静态截图 |
 
 **详细匹配规则见:** `.claude/skills/template-matching-guide.md`
 
@@ -148,9 +150,16 @@ Setup → Tension → Discovery → Insight → Resolution → Action
 └── [output].html                  # Generated presentations
 ```
 
-## Available Images
+## Available Assets
 
-Background images (for statement/quote slides):
+### Video Backgrounds (Cover & Thank You - REQUIRED)
+| File | Recommended Use |
+|------|-----------------|
+| `cover_01.mp4` - `cover_06.mp4` | Cover page or Thank You page |
+
+**规则:** Cover 和 Thank You 页面必须使用视频背景，不要用静态图片。
+
+### Background images (for statement/quote slides):
 - `background_1.png` - `background_6.png`
 - `Section_1.png` - `Section_4.png`
 - `Statement Slide_1.png` - `Statement Slide_5.png`
@@ -171,7 +180,10 @@ Placeholder images (for content areas):
 - [ ] Visual variety (no consecutive same-template)
 - [ ] 40%+ slides have background images
 - [ ] Data is visualized with cards/bars/numbers
-- [ ] Text readable (proper color contrast)
+- [ ] Cover/Thank You 使用 video 背景 (cover_*.mp4)
+- [ ] Quote 页面使用 17A 纯色版 (#72675b + 装饰引号)
+- [ ] 避免使用 Vertical Text (#18)，优先 Analysis (#15)
+- [ ] 有 Figma 设计时导出真实截图而非 placeholder
 
 ### Polish
 - [ ] All animations assigned

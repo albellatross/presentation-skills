@@ -329,7 +329,7 @@ For side-by-side comparisons:
 
 ## Template Library
 
-**18 templates from Figma source file - ALL positions are pixel-perfect:**
+**20 templates from Figma source file - ALL positions are pixel-perfect:**
 
 | # | Template | Background | Figma Key Positions |
 |---|----------|------------|---------------------|
@@ -349,8 +349,10 @@ For side-by-side comparisons:
 | 14 | Text+Images | #ffeecc | Image1: 18.02%x32.04%; Image2: 64.22%x21.95% |
 | 15 | Analysis | #ffeecc | Labels: width 20.83%, serif font |
 | 16 | Article+Image | #fef9ed | Image: left 3.44%, width 29.01%; Content: left 39.69% |
-| 17 | Quote | #72675b 或 Image | 居中，带装饰性大引号 — **引用他人的话** |
-| 18 | Vertical Text | #ffeecc | Font: 6.14cqw, gap 1.667cqw |
+| 17 | Quote | #72675b (推荐) 或 Image | 居中，带装饰性大引号 — **引用他人的话** |
+| 18 | Vertical Text | #ffeecc | Font: 6.14cqw, gap 1.667cqw — **谨慎使用，阅读性差** |
+| 19 | Timeline | #fef9ed | 水平时间轴，节点交替上下分布 — **路线图/里程碑** |
+| 20 | Content+Video | #fef9ed | Video: left 8.33%, top 12%, width 83.33% — **Demo 视频** |
 
 ### Quote (#17) vs Statement (#12) — 关键区分
 
@@ -365,11 +367,33 @@ For side-by-side comparisons:
 | 研究结论 | **Statement (#12)** | "AI must be invisible until invoked" |
 | 数据洞察 | **Statement (#12)** | "Feature bloat is the #1 pain point" |
 
-**Quote 模板视觉特征：**
-- 纯色背景 (#72675b) 或图片背景
-- 大装饰性引号 " " 在左右两侧
-- 文字居中
-- 可选的 attribution (— P05, Software Engineer)
+**Quote 17A 精确 Figma 规格 (100% 还原):**
+
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #72675b | `var(--mai-primary-dark-1)` |
+| 装饰引号字号 | 1060px | `55cqw` |
+| 引号透明度 | 20% | `opacity: 0.2` |
+| 引号颜色 | #ffeecc | `var(--mai-yellow-1)` |
+| 左引号位置 | 超出左边界 | `left: -5%; top: 10%` |
+| 右引号位置 | 超出右边界 | `right: -5%; top: 10%` |
+| 引言字号 | 80px | `4.167cqw` |
+| 引言宽度 | 944px | `49%` (~50%) |
+| 引言位置 | 居中 | `top: 50%; left: 50%; transform: translate(-50%, -50%)` |
+| 行高 | 0.95 | `line-height: 0.95` |
+| 字间距 | -3.2px | `letter-spacing: -0.04em` |
+
+**关键视觉特征:**
+- 大引号 `"` 从两侧延伸入画面，被 `overflow: hidden` 裁剪
+- 引言文字完全居中，紧凑行高 (0.95)
+- 容器必须设置 `overflow: hidden` 以裁剪引号
+
+**17B - 图片背景 (备用):**
+- 图片背景 Statement Slide_*.png
+- 文字左对齐
+- 用于需要氛围感的场景
+
+**⚠️ 强烈推荐 17A (纯色 + 引号)，视觉还原度最高**
 
 **Statement 模板视觉特征：**
 - 图片背景
@@ -627,18 +651,23 @@ Use inline SVG for maximum control over size and color:
 
 Located in `MAI Design Skill/asset/Images/`:
 
-### Cover Page Video Backgrounds (REQUIRED for Cover Pages)
+### Cover & Thank You Page Video Backgrounds (REQUIRED)
 
-**CRITICAL: Cover pages MUST use video backgrounds from `cover_*.mp4` files.**
+**CRITICAL: Cover pages AND Thank You pages MUST use video backgrounds from `cover_*.mp4` files.**
 
-| File Name | Description |
-|-----------|-------------|
-| `cover_01.mp4` | Cover video background 1 |
-| `cover_02.mp4` | Cover video background 2 |
-| `cover_03.mp4` | Cover video background 3 |
-| `cover_04.mp4` | Cover video background 4 |
+| File Name | Description | Recommended Use |
+|-----------|-------------|-----------------|
+| `cover_01.mp4` | Cover video background 1 | Cover page |
+| `cover_02.mp4` | Cover video background 2 | Thank You page |
+| `cover_03.mp4` | Cover video background 3 | Cover page (alternate) |
+| `cover_04.mp4` | Cover video background 4 | Thank You page (alternate) |
+| `cover_05.mp4` | Cover video background 5 | Either |
+| `cover_06.mp4` | Cover video background 6 | Either |
 
-**Usage Rule:** When generating a Cover page (Template #1), randomly select ONE video from the `cover_*.mp4` files.
+**Usage Rules:**
+- **Cover page** (Template #1): Use `cover_01.mp4`, `cover_03.mp4`, or `cover_05.mp4`
+- **Thank You page**: Use `cover_02.mp4`, `cover_04.mp4`, or `cover_06.mp4`
+- **NEVER use static images** (background_*.png) for Cover or Thank You pages — always use video
 
 **HTML Implementation for Video Background:**
 
@@ -714,6 +743,41 @@ Located in `MAI Design Skill/asset/Images/`:
 - `image placeholder 01.png` - `image placeholder 38.png`
 - Use for: Content areas, galleries, article images, team photos, etc.
 - Can be used on ANY template that has image containers
+
+### Figma UI Screenshots Integration
+
+**When presenting real product UI designs from Figma:**
+
+1. **Export via Figma REST API** (when MCP plugin not connected):
+   ```bash
+   # Get image export URL
+   curl -H "X-Figma-Token: YOUR_TOKEN" \
+     "https://api.figma.com/v1/images/FILE_KEY?ids=NODE_ID&format=png&scale=2"
+   
+   # Download the image
+   curl -o "MAI Design Skill/asset/Images/ui_screenshot.png" "EXPORT_URL"
+   ```
+
+2. **Save to standard location**: `MAI Design Skill/asset/Images/ui_*.png`
+
+3. **Use in presentation with phone mockup styling**:
+   ```html
+   <div style="position: absolute; right: 5%; top: 50%; transform: translateY(-50%); 
+               width: 35%; padding: 2cqw; background: rgba(0,0,0,0.05); 
+               border-radius: 3cqw; box-shadow: 0 0.5cqw 2cqw rgba(0,0,0,0.15);">
+     <img src="MAI Design Skill/asset/Images/ui_landing.png" 
+          style="width: 100%; border-radius: 1.5cqw;" class="animate-in-right">
+   </div>
+   ```
+
+**命名规范:**
+- `ui_landing.png` - 着陆页/首页
+- `ui_voice_greeting.png` - 语音问候界面
+- `ui_settings.png` - 设置页面
+- `ui_controls.png` - 控件界面
+- `figma_placement.png` - 布局说明图
+
+**⚠️ 重要:** 当用户提供 Figma 设计链接时，应导出真实截图而非使用 placeholder 图片。
 
 ### Usage Examples
 

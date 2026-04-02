@@ -41,7 +41,7 @@ All positioning values are extracted directly from demo.html which matches the o
 
 | # | Template Name | Background | Use Case |
 |---|---------------|------------|----------|
-| 1 | Cover Slide | Image | Opening, title page |
+| 1 | Cover Slide | Video | Opening, title page |
 | 2 | Agenda Slide (Dark) | #72675b | Meeting agendas |
 | 3 | Agenda Slide (Accent) | #3b230e | Meeting agendas (emphasis) |
 | 4 | Section Title Slide | Image | Chapter dividers |
@@ -57,8 +57,10 @@ All positioning values are extracted directly from demo.html which matches the o
 | 14 | Text with Images | #ffeecc | Mixed text + images |
 | 15 | Analysis/Status | #ffeecc | Reviews, assessments |
 | 16 | Article with Image | #fef9ed | Detailed content |
-| 17 | Quote Slide | Image | Famous quotes |
+| 17 | Quote Slide | #72675b / Image | Famous quotes |
 | 18 | Vertical Text | #ffeecc | Key themes/pillars |
+| 19 | Timeline | #fef9ed | Roadmaps, milestones |
+| 20 | Content with Video | #fef9ed | Demo videos, walkthroughs |
 
 ---
 
@@ -737,38 +739,77 @@ All positioning values are extracted directly from demo.html which matches the o
 
 **Two variants available:**
 
-### 17A. Quote with Solid Background (纯色背景 - 推荐用于用户/专家引言)
+### 17A. Quote with Solid Background (纯色背景 - 强烈推荐)
 
-**Figma reference:** 截图中的设计，带装饰性大引号
-- Background: #72675b (solid color)
-- Decorative quotes: Large " " marks in lighter shade
-- Quote text: Centered, serif font, cream color
-- Attribution (optional): Below quote text
+**Figma 精确规格 (100% 还原):**
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #72675b | `var(--mai-primary-dark-1)` |
+| 装饰引号字号 | 1060.571px | `55.24cqw` (~55cqw) |
+| 引号透明度 | 20% | `opacity: 0.2` |
+| 引号颜色 | #ffeecc | `var(--mai-yellow-1)` |
+| 左引号位置 | 超出左边界 | `left: -5%; top: 10%` |
+| 右引号位置 | 超出右边界 | `right: -5%; top: 10%` |
+| 引言字号 | 80px | `4.167cqw` |
+| 引言宽度 | 944px | `49.17%` (~50%) |
+| 引言位置 | 居中 | `top: 50%; left: 50%; transform: translate(-50%, -50%)` |
+| 行高 | 0.95 | `line-height: 0.95` |
+| 字间距 | -3.2px | `letter-spacing: -0.04em` |
 
 ```html
 <div class="slide" data-slide="{{N}}">
-  <div class="slide-inner" style="background: var(--mai-primary-dark-1);">
+  <div class="slide-inner" style="background: var(--mai-primary-dark-1); overflow: hidden;">
     
-    <!-- Decorative Opening Quote Mark (left) -->
-    <div class="quote-mark quote-mark-open animate-in" style="position: absolute; left: 5%; top: 20%; font-size: 25cqw; line-height: 1; font-family: var(--mai-font-serif); color: rgba(255, 238, 204, 0.15);">
-      "
-    </div>
+    <!-- Decorative Opening Quote Mark (left) - 超出边界被裁剪 -->
+    <div class="quote-mark-left animate-in" style="
+      position: absolute; 
+      left: -5%; 
+      top: 10%; 
+      font-size: 55cqw; 
+      line-height: 1; 
+      font-family: var(--mai-font-serif); 
+      color: var(--mai-yellow-1);
+      opacity: 0.2;
+    ">"</div>
     
-    <!-- Decorative Closing Quote Mark (right) -->
-    <div class="quote-mark quote-mark-close animate-in" style="position: absolute; right: 5%; bottom: 25%; font-size: 25cqw; line-height: 1; font-family: var(--mai-font-serif); color: rgba(255, 238, 204, 0.15);">
-      "
-    </div>
+    <!-- Decorative Closing Quote Mark (right) - 超出边界被裁剪 -->
+    <div class="quote-mark-right animate-in" style="
+      position: absolute; 
+      right: -5%; 
+      top: 10%; 
+      font-size: 55cqw; 
+      line-height: 1; 
+      font-family: var(--mai-font-serif); 
+      color: var(--mai-yellow-1);
+      opacity: 0.2;
+    ">"</div>
     
-    <!-- Quote Text - Centered -->
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70%; text-align: center;">
-      <p class="mai-title-serif-large animate-in stagger-1" style="color: var(--mai-yellow-1); font-size: 3cqw; line-height: 1.3;">
-        "{{QUOTE_TEXT}}"
-      </p>
-      <!-- Optional Attribution -->
-      <p class="mai-body animate-in stagger-2" style="color: var(--mai-yellow-1); opacity: 0.7; margin-top: 2cqw;">
-        — {{ATTRIBUTION}}
-      </p>
-    </div>
+    <!-- Quote Text - Centered, 精确 Figma 规格 -->
+    <p class="mai-title-serif-large animate-in" style="
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%); 
+      width: 49%; 
+      text-align: center;
+      color: var(--mai-yellow-1); 
+      font-size: 4.167cqw; 
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    ">"{{QUOTE_TEXT}}"</p>
+    
+    <!-- Optional Attribution (如有署名) -->
+    <!-- 
+    <p class="mai-body animate-in" style="
+      position: absolute; 
+      top: 68%; 
+      left: 50%; 
+      transform: translateX(-50%);
+      text-align: center;
+      color: var(--mai-yellow-1); 
+      opacity: 0.7;
+    ">— {{ATTRIBUTION}}</p>
+    -->
 
     <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
       <span>{{FOOTER_LEFT}}</span>
@@ -778,6 +819,11 @@ All positioning values are extracted directly from demo.html which matches the o
   </div>
 </div>
 ```
+
+**视觉特征:**
+- 大引号 " " 从两侧延伸入画面，被边界裁剪，营造视觉张力
+- 引言文字完全居中，紧凑行高 (0.95)
+- 引号透明度低 (20%)，不干扰阅读
 
 **When to use 17A (Solid Background Quote):**
 - User verbatim quotes from research
@@ -883,6 +929,190 @@ All positioning values are extracted directly from demo.html which matches the o
   </div>
 </div>
 ```
+
+---
+
+## 19. Timeline Slide (时间轴页)
+
+**Figma 精确规格：**
+
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #fef9ed | `var(--mai-primary-light-1)` |
+| 标题位置 | left 62px, top 100px | `left: 3.23%; top: 9.26%` |
+| 标题字号 | 46px | `2.396cqw` |
+| 时间轴线位置 | top 50% (垂直居中) | `top: 50%` |
+| 时间轴线宽度 | 1795px | `93.5%` |
+| 节点圆点 | 24px 金色圆 | `1.25cqw`, `#e5b85c` |
+| 日期字号 | 24px Bold | `1.25cqw`, `font-weight: 700` |
+| 描述字号 | 14px | `0.73cqw` |
+| 节点间距 | ~390px | `~20%` |
+
+**布局特征：**
+- 节点交替分布在时间轴上下
+- 奇数节点 (1, 3, 5): 日期在上，描述在下
+- 偶数节点 (2, 4): 描述在上，日期在下
+- 虚线连接节点到时间轴
+
+```html
+<div class="slide" data-slide="{{N}}">
+  <div class="slide-inner" style="background-color: var(--mai-primary-light-1);">
+    
+    <!-- Title with divider -->
+    <div style="position: absolute; left: 3.23%; top: 9.26%; width: 93.5%;">
+      <hr class="mai-divider" style="margin-bottom: 2cqw;">
+      <p class="mai-title-serif animate-in" style="color: var(--mai-primary-dark-2);">
+        {{TIMELINE_TITLE}}
+      </p>
+    </div>
+
+    <!-- Timeline Container -->
+    <div style="position: absolute; left: 3.33%; top: 35%; width: 93.5%; height: 50%;">
+      
+      <!-- Horizontal Timeline Line -->
+      <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--mai-primary-dark-1);"></div>
+      
+      <!-- Timeline Nodes -->
+      <!-- Node 1 (下方) -->
+      <div class="timeline-node animate-in" style="position: absolute; left: 0%; top: 50%; transform: translateY(0); text-align: center; width: 10.4%;">
+        <!-- 圆点 -->
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto 1cqw;"></div>
+        <!-- 日期 -->
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 0.5cqw;">{{DATE_1}}</p>
+        <!-- 虚线 -->
+        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
+        <!-- 描述 -->
+        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-top: 0.5cqw;">{{DESC_1}}</p>
+      </div>
+      
+      <!-- Node 2 (上方) -->
+      <div class="timeline-node animate-in" style="position: absolute; left: 20%; top: 50%; transform: translateY(-100%); text-align: center; width: 10.4%;">
+        <!-- 描述 -->
+        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-bottom: 0.5cqw;">{{DESC_2}}</p>
+        <!-- 虚线 -->
+        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
+        <!-- 日期 -->
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 0.5cqw;">{{DATE_2}}</p>
+        <!-- 圆点 -->
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 1cqw auto 0;"></div>
+      </div>
+      
+      <!-- Node 3 (下方) -->
+      <div class="timeline-node animate-in" style="position: absolute; left: 40%; top: 50%; transform: translateY(0); text-align: center; width: 10.4%;">
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto 1cqw;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 0.5cqw;">{{DATE_3}}</p>
+        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-top: 0.5cqw;">{{DESC_3}}</p>
+      </div>
+      
+      <!-- Node 4 (上方) -->
+      <div class="timeline-node animate-in" style="position: absolute; left: 60%; top: 50%; transform: translateY(-100%); text-align: center; width: 10.4%;">
+        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-bottom: 0.5cqw;">{{DESC_4}}</p>
+        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 0.5cqw;">{{DATE_4}}</p>
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 1cqw auto 0;"></div>
+      </div>
+      
+      <!-- Node 5 (下方) -->
+      <div class="timeline-node animate-in" style="position: absolute; left: 80%; top: 50%; transform: translateY(0); text-align: center; width: 10.4%;">
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto 1cqw;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 0.5cqw;">{{DATE_5}}</p>
+        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-top: 0.5cqw;">{{DESC_5}}</p>
+      </div>
+    </div>
+
+    <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+      <span>{{FOOTER_LEFT}}</span>
+      <span>{{FOOTER_CENTER}}</span>
+      <span>{{FOOTER_RIGHT}}</span>
+    </div>
+  </div>
+</div>
+```
+
+**When to use Timeline:**
+- Product roadmap / release schedule
+- Project milestones
+- Historical progression
+- Process stages with dates
+
+---
+
+## 20. Content with Video (文字+视频页)
+
+**Figma 精确规格：**
+
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #fef9ed | `var(--mai-primary-light-1)` |
+| 标题位置 | left 64px, top ~45px | `left: 3.33%; top: 4%` |
+| 标题字号 | 46px | `2.396cqw` |
+| 视频区域 left | 160px | `8.33%` |
+| 视频区域 top | 130px | `12%` |
+| 视频区域宽度 | 1600px | `83.33%` |
+| 视频区域高度 | 900px | `83.33%` (保持 16:9) |
+| 视频圆角 | 5px | `0.26cqw` |
+
+```html
+<div class="slide" data-slide="{{N}}">
+  <div class="slide-inner" style="background-color: var(--mai-primary-light-1);">
+    
+    <!-- Title -->
+    <p class="mai-title-serif animate-in" style="position: absolute; left: 3.33%; top: 4%; color: var(--mai-primary-dark-2);">
+      {{VIDEO_TITLE}}
+    </p>
+
+    <!-- Video Container -->
+    <div style="position: absolute; left: 8.33%; top: 12%; width: 83.33%; height: 83.33%; border-radius: 0.26cqw; overflow: hidden; box-shadow: 0 0.5cqw 2cqw rgba(0,0,0,0.1);">
+      <video class="animate-in" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+        <source src="{{VIDEO_SRC}}" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+      <span>{{FOOTER_LEFT}}</span>
+      <span>{{FOOTER_CENTER}}</span>
+      <span>{{FOOTER_RIGHT}}</span>
+    </div>
+  </div>
+</div>
+```
+
+### 20B. Content with Video (带播放按钮 - 非自动播放)
+
+用于需要用户点击播放的场景：
+
+```html
+<div class="slide" data-slide="{{N}}">
+  <div class="slide-inner" style="background-color: var(--mai-primary-light-1);">
+    
+    <!-- Title -->
+    <p class="mai-title-serif animate-in" style="position: absolute; left: 3.33%; top: 4%; color: var(--mai-primary-dark-2);">
+      {{VIDEO_TITLE}}
+    </p>
+
+    <!-- Video Container with controls -->
+    <div style="position: absolute; left: 8.33%; top: 12%; width: 83.33%; height: 83.33%; border-radius: 0.26cqw; overflow: hidden; box-shadow: 0 0.5cqw 2cqw rgba(0,0,0,0.1);">
+      <video class="animate-in" controls playsinline poster="{{POSTER_IMAGE}}" style="width: 100%; height: 100%; object-fit: cover;">
+        <source src="{{VIDEO_SRC}}" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+      <span>{{FOOTER_LEFT}}</span>
+      <span>{{FOOTER_CENTER}}</span>
+      <span>{{FOOTER_RIGHT}}</span>
+    </div>
+  </div>
+</div>
+```
+
+**When to use Content with Video:**
+- Demo videos / product walkthroughs
+- Screen recordings
+- Prototype demonstrations
+- Tutorial content
 
 ---
 
