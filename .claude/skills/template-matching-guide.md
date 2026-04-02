@@ -229,18 +229,21 @@
 | **17A (强烈推荐)** | 纯色 #72675b | 居中文字 + 左右大装饰引号 " " | 用户引言、专家观点、问题 | ⭐⭐⭐ |
 | **17B** | 图片背景 | 左对齐文字 | 需要氛围感的引言 | ⭐ |
 
-**17A 精确 Figma 规格 (100% 还原):**
+**17A 精确 Figma 规格 (从 Figma 节点 1:434 提取，100% 还原):**
 
 | 元素 | Figma 值 | CSS 值 |
 |------|----------|--------|
 | 背景 | #72675b | `var(--mai-primary-dark-1)` |
-| 装饰引号字号 | 1060px | `55cqw` |
-| 引号透明度 | 20% | `opacity: 0.2` |
+| 装饰引号字体 | Bradford LL Medium, 1060.571px | SVG 素材 (已转换) |
+| 引号尺寸 | 504.686px × 1238.63px | `width: 26.28cqw; height: 64.5cqw` |
+| **引号透明度** | **20%** | **`opacity: 0.2`** |
 | 引号颜色 | #ffeecc | `var(--mai-yellow-1)` |
-| 左引号位置 | 超出左边界 | `left: -5%; top: 10%` |
-| 右引号位置 | 超出右边界 | `right: -5%; top: 10%` |
+| 左引号 top | 232px (21.5%) | `top: 21.5%` |
+| 左引号 left | -98.74px (-5.14%) | `left: -5.14%` |
+| 右引号 right | 对称 | `right: -5.14%` |
+| 引言字体 | Bradford LL Book | `var(--mai-font-serif)` |
 | 引言字号 | 80px | `4.167cqw` |
-| 引言宽度 | 944px | `49%` |
+| 引言宽度 | 944px (49.17%) | `49.17%` |
 | 引言位置 | 居中 | `top: 50%; left: 50%; transform: translate(-50%, -50%)` |
 | 行高 | 0.95 | `line-height: 0.95` |
 | 字间距 | -3.2px | `letter-spacing: -0.04em` |
@@ -249,7 +252,35 @@
 - 容器必须 `overflow: hidden` 以裁剪超出的引号
 - 引号从两侧延伸入画面，营造视觉张力
 - 引言紧凑行高 (0.95)，负字间距 (-0.04em)
+- 使用 SVG 图片素材：`quote-open.svg` / `quote-close.svg`
 - **优点:** 阅读性好、视觉专业、100% Figma 还原
+
+**CSS 样式 (添加到 base-template.html):**
+```css
+/* Quote Decorative Marks - Matching Figma exactly */
+.quote-mark-left,
+.quote-mark-right {
+  position: absolute;
+  top: 21.5%;  /* Figma: 232px from top */
+  width: 26.28cqw;  /* Figma: 504.686px */
+  height: 64.5cqw;  /* Figma: 1238.63px */
+  opacity: 0.2;  /* Figma: 20% opacity */
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.quote-mark-left {
+  left: -5.14%;  /* Figma: -98.74px */
+  background-image: url('MAI Design Skill/asset/Images/quote-open.svg');
+  background-position: left top;
+}
+
+.quote-mark-right {
+  right: -5.14%;
+  background-image: url('MAI Design Skill/asset/Images/quote-close.svg');
+  background-position: right top;
+}
+```
 
 **适用内容:**
 - 用户访谈原话 (P05: "It remembers custom phrases...")
@@ -267,20 +298,24 @@
 **HTML 关键结构 (17A - 强烈推荐):**
 ```html
 <div class="slide-inner" style="background: var(--mai-primary-dark-1); overflow: hidden;">
-  <!-- 左引号 - 超出边界被裁剪 -->
-  <div style="position: absolute; left: -5%; top: 10%; font-size: 55cqw; 
-              line-height: 1; font-family: var(--mai-font-serif); 
-              color: var(--mai-yellow-1); opacity: 0.2;">"</div>
+  <!-- 左引号 - SVG 素材 -->
+  <div class="quote-mark-left animate-in"></div>
   <!-- 右引号 -->
-  <div style="position: absolute; right: -5%; top: 10%; font-size: 55cqw; 
-              line-height: 1; font-family: var(--mai-font-serif); 
-              color: var(--mai-yellow-1); opacity: 0.2;">"</div>
+  <div class="quote-mark-right animate-in"></div>
   <!-- 引言 -->
-  <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 49%; text-align: center; color: var(--mai-yellow-1); 
-            font-size: 4.167cqw; line-height: 0.95; letter-spacing: -0.04em;">
-    "{{QUOTE_TEXT}}"
-  </p>
+  <p class="animate-in" style="
+    position: absolute; 
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%); 
+    width: 49.17%; 
+    text-align: center;
+    color: var(--mai-yellow-1); 
+    font-family: var(--mai-font-serif);
+    font-size: 4.167cqw; 
+    font-weight: 450;
+    line-height: 0.95; 
+    letter-spacing: -0.04em;
+  ">"{{QUOTE_TEXT}}"</p>
 </div>
 ```
 
@@ -526,7 +561,86 @@
 
 ---
 
-#### F4. Image Collage (图片拼贴) - 创意布局
+#### F4. Phone Mockup + Article (手机 Mockup + 文章)
+**模板编号:** #21  
+**功能:** 单个 UI 界面配合详细文字介绍  
+**信息密度:** HIGH  
+**视觉:** 左侧手机 mockup + 右侧完整文章  
+**呼吸类型:** 实质  
+
+**适用内容:**
+- 详细的功能介绍配合单个 UI 截图
+- App feature deep-dive
+- CEO/创始人寄语配合产品界面
+
+**不适用:**
+- ❌ 多个 UI 界面（应使用 #22 或 #23）
+- ❌ 简短描述（应使用 Content+Image #6）
+
+**HTML 关键结构:**
+```
+背景: #fef9ed
+手机: left 9.53%, width 23.54%, height 79.9%
+内容: left 39.69%, width 54.11%
+```
+
+---
+
+#### F5. Four Phone Gallery (四手机画廊)
+**模板编号:** #22  
+**功能:** 展示多个 UI 界面/流程  
+**信息密度:** LOW (纯视觉)  
+**视觉:** 4 个手机 mockup 并排，中间突出  
+**呼吸类型:** 呼吸  
+
+**适用内容:**
+- App 功能概览
+- 用户旅程的关键屏幕
+- 设计变体对比
+- UI 流程展示
+
+**不适用:**
+- ❌ 需要文字说明（应使用 #21 或 #23）
+- ❌ 图片数量不是 4
+
+**HTML 关键结构:**
+```
+背景: #fef9ed
+4 个手机 mockup: width 20.47% 每个
+第3个突出: height 100%, 无圆角
+其他3个: height 78.7%, 圆角 0.26cqw
+```
+
+---
+
+#### F6. Text + Two Phone Mockups (文字 + 双手机)
+**模板编号:** #23  
+**功能:** 功能介绍配合两个相关 UI  
+**信息密度:** HIGH  
+**视觉:** 左侧文字 + 右侧两个手机 mockup  
+**呼吸类型:** 实质  
+
+**适用内容:**
+- 功能介绍配合两个相关 UI
+- 对比展示 (前后 / A-B 版本)
+- 团队项目展示配合界面截图
+
+**不适用:**
+- ❌ 单个 UI（应使用 #21）
+- ❌ 纯视觉展示（应使用 #22）
+
+**HTML 关键结构:**
+```
+背景: #e1dbc6 (较深)
+内容: left 3.33%, width 37.71%
+手机1: left 51.46%, width 21.2%
+手机2: left 75.73%, width 21.2%
+圆角: 0.833cqw (16px)
+```
+
+---
+
+#### F7. Image Collage (图片拼贴) - 创意布局
 **模板编号:** #10  
 **功能:** 艺术性/创意性的图片展示  
 **信息密度:** LOW  
@@ -614,6 +728,37 @@
 **视觉:** 水平时间轴，节点交替上下分布  
 **呼吸类型:** 实质  
 
+**Figma 精确规格 (从 Figma 节点 25:214 提取，100% 还原):**
+
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #fef9ed | `var(--mai-primary-light-1)` |
+| 标题 left | 62px (3.23%) | `left: 3.23%` |
+| 标题 top | 100px (9.26%) | `top: 9.26%` |
+| 标题字体 | Abhaya Libre Medium | `var(--mai-font-serif)` |
+| 标题字号 | 46px | `2.396cqw` |
+| 时间轴容器 left | 64px (3.33%) | `left: 3.33%` |
+| 时间轴容器 top | 405px (37.5%) | `top: 37.5%` |
+| 时间轴容器宽度 | 1795px (93.5%) | `width: 93.5%` |
+| 时间轴容器高度 | 270px (25%) | `height: 25%` |
+| 时间轴线位置 | 居中 (50%) | `top: 50%` |
+| 节点圆点 | 24px (#e5b85c) | `1.25cqw`, `var(--mai-yellow-3)` |
+| 日期字体 | Poppins Bold | `var(--mai-font-sans); font-weight: 700` |
+| 日期字号 | 24px | `1.25cqw` |
+| 日期颜色 | #5f4e41 | `var(--mai-primary-dark-2)` |
+| 描述字体 | Poppins Regular | `var(--mai-font-sans)` |
+| 描述字号 | 14px | `0.729cqw` |
+| 描述颜色 | #343434 | `#343434` |
+| 节点宽度 | 200px (10.42%) | `width: 10.42%` |
+| 连接线 | 49px 虚线 | `height: 2.55cqw`, dashed |
+| 节点位置 | 0.33%, 22%, 44%, 65.5%, 87% | Figma exact |
+
+**布局特征 (Figma 精确还原):**
+- 节点交替分布在时间轴上下
+- **下方节点 (1, 3, 5):** 圆点 → 日期 → 虚线 → 描述 (使用 `top: 50%`)
+- **上方节点 (2, 4):** 描述 → 虚线 → 日期 → 圆点 (使用 `bottom: 50%`)
+- 虚线使用 CSS gradient 实现: `repeating-linear-gradient(to bottom, color 0, color 4px, transparent 4px, transparent 8px)`
+
 **适用内容:**
 - 产品路线图 / 发布计划
 - 项目里程碑
@@ -625,13 +770,38 @@
 - ❌ 无时间/顺序关系的内容
 
 **HTML 关键结构:**
-```
-背景: #fef9ed
-标题: mai-title-serif, left 3.23%, top 9.26%
-时间轴线: 水平线 top 50%
-节点: 交替上下分布，金色圆点 1.25cqw (#e5b85c)
-日期: 1.25cqw, font-weight 700
-描述: 0.73cqw, #343434
+```html
+<div class="slide-inner" style="background-color: var(--mai-primary-light-1);">
+  <!-- Title Area -->
+  <div style="position: absolute; left: 3.23%; top: 9.26%; width: 93.6%;">
+    <hr style="border: none; border-top: 1px solid var(--mai-primary-dark-2); opacity: 0.3; margin-bottom: 2.08cqw;">
+    <p style="font-family: var(--mai-font-serif); font-size: 2.396cqw; font-weight: 500; color: var(--mai-primary-dark-2);">{{TITLE}}</p>
+  </div>
+
+  <!-- Timeline Container -->
+  <div style="position: absolute; left: 3.33%; top: 37.5%; width: 93.5%; height: 25%;">
+    <!-- Horizontal Line -->
+    <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--mai-primary-dark-1);"></div>
+    
+    <!-- Node 1 (下方) -->
+    <div style="position: absolute; left: 0.33%; top: 50%; text-align: center; width: 10.42%;">
+      <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
+      <p style="font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">{{DATE}}</p>
+      <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(...); opacity: 0.5; margin: 0.625cqw auto;"></div>
+      <p style="font-size: 0.729cqw; color: #343434;">{{DESC}}</p>
+    </div>
+    
+    <!-- Node 2 (上方) -->
+    <div style="position: absolute; left: 22%; bottom: 50%; text-align: center; width: 10.42%;">
+      <p style="font-size: 0.729cqw; color: #343434;">{{DESC}}</p>
+      <div style="...dashed line..."></div>
+      <p style="font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 2.08cqw;">{{DATE}}</p>
+      <div style="...circle..."></div>
+    </div>
+    
+    <!-- 继续 Node 3, 4, 5... -->
+  </div>
+</div>
 ```
 
 ---

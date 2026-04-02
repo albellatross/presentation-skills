@@ -61,6 +61,9 @@ All positioning values are extracted directly from demo.html which matches the o
 | 18 | Vertical Text | #ffeecc | Key themes/pillars |
 | 19 | Timeline | #fef9ed | Roadmaps, milestones |
 | 20 | Content with Video | #fef9ed | Demo videos, walkthroughs |
+| 21 | Phone Mockup + Article | #fef9ed | UI detail + text |
+| 22 | Four Phone Gallery | #fef9ed | Multi-screen showcase |
+| 23 | Text + Two Phones | #e1dbc6 | Feature intro + dual UI |
 
 ---
 
@@ -741,75 +744,79 @@ All positioning values are extracted directly from demo.html which matches the o
 
 ### 17A. Quote with Solid Background (纯色背景 - 强烈推荐)
 
-**Figma 精确规格 (100% 还原):**
+**Figma 精确规格 (100% 还原 - 从 Figma 节点 1:434 提取):**
 | 元素 | Figma 值 | CSS 值 |
 |------|----------|--------|
 | 背景 | #72675b | `var(--mai-primary-dark-1)` |
-| 装饰引号字号 | 1060.571px | `55.24cqw` (~55cqw) |
-| 引号透明度 | 20% | `opacity: 0.2` |
-| 引号颜色 | #ffeecc | `var(--mai-yellow-1)` |
-| 左引号位置 | 超出左边界 | `left: -5%; top: 10%` |
-| 右引号位置 | 超出右边界 | `right: -5%; top: 10%` |
+| 装饰引号字体 | Bradford LL Medium | SVG 素材 (已转换) |
+| 引号尺寸 | 504.686px x 1238.63px | `width: 26.28cqw; height: 64.5cqw` |
+| **引号透明度** | **20%** | **`opacity: 0.2`** |
+| 引号位置 | top: 232px (-98.74px left / 1525px right) | `top: 21.5%; left: -5.14%` / `right: -5.14%` |
+| 引言字体 | Bradford LL Book | `var(--mai-font-serif)` |
 | 引言字号 | 80px | `4.167cqw` |
-| 引言宽度 | 944px | `49.17%` (~50%) |
+| 引言宽度 | 944px | `49.17%` |
 | 引言位置 | 居中 | `top: 50%; left: 50%; transform: translate(-50%, -50%)` |
 | 行高 | 0.95 | `line-height: 0.95` |
 | 字间距 | -3.2px | `letter-spacing: -0.04em` |
+| 引言颜色 | #ffeecc | `var(--mai-yellow-1)` |
+
+**重要：使用 SVG 图片素材**
+引号素材位于 `MAI Design Skill/asset/Images/` 目录：
+- `quote-open.svg` - 左侧开引号 "
+- `quote-close.svg` - 右侧闭引号 "
+
+**CSS 样式 (添加到 base-template.html):**
+```css
+/* Quote Decorative Marks - Matching Figma exactly
+   Font: Bradford LL Medium, 1060.571px (55.24cqw)
+   Color: #ffeecc, Opacity: 20% */
+.quote-mark-left,
+.quote-mark-right {
+  position: absolute;
+  top: 21.5%;  /* Figma: 232px from top (232/1080 = 21.5%) */
+  width: 26.28cqw;  /* Figma: 504.686px (504.686/1920 = 26.28%) */
+  height: 64.5cqw;  /* Figma: 1238.63px to fill quotes area */
+  opacity: 0.2;  /* Figma: 20% opacity */
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.quote-mark-left {
+  left: -5.14%;  /* Figma: -98.74px (-98.74/1920 = -5.14%) */
+  background-image: url('MAI Design Skill/asset/Images/quote-open.svg');
+  background-position: left top;
+}
+
+.quote-mark-right {
+  right: -5.14%;  /* Figma: 1525px from left = right at -5.14% */
+  background-image: url('MAI Design Skill/asset/Images/quote-close.svg');
+  background-position: right top;
+}
+```
 
 ```html
 <div class="slide" data-slide="{{N}}">
   <div class="slide-inner" style="background: var(--mai-primary-dark-1); overflow: hidden;">
     
-    <!-- Decorative Opening Quote Mark (left) - 超出边界被裁剪 -->
-    <div class="quote-mark-left animate-in" style="
-      position: absolute; 
-      left: -5%; 
-      top: 10%; 
-      font-size: 55cqw; 
-      line-height: 1; 
-      font-family: var(--mai-font-serif); 
-      color: var(--mai-yellow-1);
-      opacity: 0.2;
-    ">"</div>
+    <!-- Decorative Quote Marks - SVG Image Assets (Figma exact) -->
+    <div class="quote-mark-left animate-in"></div>
+    <div class="quote-mark-right animate-in"></div>
     
-    <!-- Decorative Closing Quote Mark (right) - 超出边界被裁剪 -->
-    <div class="quote-mark-right animate-in" style="
-      position: absolute; 
-      right: -5%; 
-      top: 10%; 
-      font-size: 55cqw; 
-      line-height: 1; 
-      font-family: var(--mai-font-serif); 
-      color: var(--mai-yellow-1);
-      opacity: 0.2;
-    ">"</div>
-    
-    <!-- Quote Text - Centered, 精确 Figma 规格 -->
-    <p class="mai-title-serif-large animate-in" style="
+    <!-- Quote Text - Centered (Figma exact: 49.17% width, centered) -->
+    <p class="animate-in" style="
       position: absolute; 
       top: 50%; 
       left: 50%; 
       transform: translate(-50%, -50%); 
-      width: 49%; 
+      width: 49.17%; 
       text-align: center;
       color: var(--mai-yellow-1); 
+      font-family: var(--mai-font-serif);
       font-size: 4.167cqw; 
+      font-weight: 450;
       line-height: 0.95;
       letter-spacing: -0.04em;
     ">"{{QUOTE_TEXT}}"</p>
-    
-    <!-- Optional Attribution (如有署名) -->
-    <!-- 
-    <p class="mai-body animate-in" style="
-      position: absolute; 
-      top: 68%; 
-      left: 50%; 
-      transform: translateX(-50%);
-      text-align: center;
-      color: var(--mai-yellow-1); 
-      opacity: 0.7;
-    ">— {{ATTRIBUTION}}</p>
-    -->
 
     <div class="mai-footer mai-caption" style="color: var(--mai-yellow-1);">
       <span>{{FOOTER_LEFT}}</span>
@@ -821,9 +828,10 @@ All positioning values are extracted directly from demo.html which matches the o
 ```
 
 **视觉特征:**
-- 大引号 " " 从两侧延伸入画面，被边界裁剪，营造视觉张力
+- SVG 引号从两侧延伸入画面，被 `overflow: hidden` 裁剪
 - 引言文字完全居中，紧凑行高 (0.95)
-- 引号透明度低 (20%)，不干扰阅读
+- 引号透明度 **20%** (Figma 精确值)
+- 引号尺寸和位置 100% 匹配 Figma
 
 **When to use 17A (Solid Background Quote):**
 - User verbatim quotes from research
@@ -934,92 +942,105 @@ All positioning values are extracted directly from demo.html which matches the o
 
 ## 19. Timeline Slide (时间轴页)
 
-**Figma 精确规格：**
+**Figma 精确规格 (从 Figma 节点 25:214 提取)：**
 
 | 元素 | Figma 值 | CSS 值 |
 |------|----------|--------|
 | 背景 | #fef9ed | `var(--mai-primary-light-1)` |
 | 标题位置 | left 62px, top 100px | `left: 3.23%; top: 9.26%` |
+| 标题字体 | Abhaya Libre Medium | `var(--mai-font-serif)` |
 | 标题字号 | 46px | `2.396cqw` |
-| 时间轴线位置 | top 50% (垂直居中) | `top: 50%` |
-| 时间轴线宽度 | 1795px | `93.5%` |
-| 节点圆点 | 24px 金色圆 | `1.25cqw`, `#e5b85c` |
-| 日期字号 | 24px Bold | `1.25cqw`, `font-weight: 700` |
-| 描述字号 | 14px | `0.73cqw` |
-| 节点间距 | ~390px | `~20%` |
+| 时间轴容器 | left 64px, top 405px, width 1795px, height 270px | `left: 3.33%; top: 37.5%; width: 93.5%; height: 25%` |
+| 时间轴线 | 居中 (50%) | `top: 50%` |
+| 节点圆点 | 24px 金色圆 | `1.25cqw`, `var(--mai-yellow-3)` |
+| 日期字体 | Poppins Bold | `var(--mai-font-sans); font-weight: 700` |
+| 日期字号 | 24px | `1.25cqw` |
+| 日期颜色 | #5f4e41 | `var(--mai-primary-dark-2)` |
+| 描述字体 | Poppins Regular | `var(--mai-font-sans)` |
+| 描述字号 | 14px | `0.729cqw` |
+| 描述颜色 | #343434 | `#343434` |
+| 节点宽度 | 200px | `10.42%` |
+| 连接线 | 49px 虚线 | `2.55cqw`, dashed |
 
-**布局特征：**
+**布局特征 (Figma 精确还原)：**
 - 节点交替分布在时间轴上下
-- 奇数节点 (1, 3, 5): 日期在上，描述在下
-- 偶数节点 (2, 4): 描述在上，日期在下
-- 虚线连接节点到时间轴
+- **下方节点 (1, 3, 5):** 圆点 → 日期 → 虚线 → 描述
+- **上方节点 (2, 4):** 描述 → 虚线 → 日期 → 圆点
+- 使用 `top: 50%` / `bottom: 50%` 实现上下定位
 
 ```html
 <div class="slide" data-slide="{{N}}">
   <div class="slide-inner" style="background-color: var(--mai-primary-light-1);">
     
-    <!-- Title with divider -->
-    <div style="position: absolute; left: 3.23%; top: 9.26%; width: 93.5%;">
-      <hr class="mai-divider" style="margin-bottom: 2cqw;">
-      <p class="mai-title-serif animate-in" style="color: var(--mai-primary-dark-2);">
-        {{TIMELINE_TITLE}}
-      </p>
+    <!-- Title Area - Figma: left 62px, top 100px -->
+    <div style="position: absolute; left: 3.23%; top: 9.26%; width: 93.6%;">
+      <!-- Divider Line -->
+      <hr class="animate-in" style="border: none; border-top: 1px solid var(--mai-primary-dark-2); opacity: 0.3; margin-bottom: 2.08cqw;">
+      <!-- Title - Figma: Abhaya Libre Medium, 46px -->
+      <p class="animate-in" style="
+        font-family: var(--mai-font-serif);
+        font-size: 2.396cqw;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: var(--mai-primary-dark-2);
+      ">{{TIMELINE_TITLE}}</p>
     </div>
 
-    <!-- Timeline Container -->
-    <div style="position: absolute; left: 3.33%; top: 35%; width: 93.5%; height: 50%;">
-      
-      <!-- Horizontal Timeline Line -->
+    <!-- Timeline Container - Figma: left 64px, top 405px (37.5%), width 1795px, height 270px -->
+    <div style="position: absolute; left: 3.33%; top: 37.5%; width: 93.5%; height: 25%;">
+
+      <!-- Horizontal Timeline Line - Figma: at 50% of container -->
       <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--mai-primary-dark-1);"></div>
-      
-      <!-- Timeline Nodes -->
-      <!-- Node 1 (下方) -->
-      <div class="timeline-node animate-in" style="position: absolute; left: 0%; top: 50%; transform: translateY(0); text-align: center; width: 10.4%;">
-        <!-- 圆点 -->
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto 1cqw;"></div>
-        <!-- 日期 -->
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 0.5cqw;">{{DATE_1}}</p>
-        <!-- 虚线 -->
-        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
-        <!-- 描述 -->
-        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-top: 0.5cqw;">{{DESC_1}}</p>
+
+      <!-- Node 1 (下方) - Figma: left 0 -->
+      <div class="animate-in animate-stagger-1" style="position: absolute; left: 0.33%; top: 50%; text-align: center; width: 10.42%;">
+        <!-- Point - Figma: 24px circle -->
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
+        <!-- Date - Figma: Poppins Bold 24px -->
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">{{DATE_1}}</p>
+        <!-- Connector Line - Figma: 49px dashed -->
+        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+        <!-- Description - Figma: Poppins Regular 14px -->
+        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_1}}</p>
       </div>
-      
-      <!-- Node 2 (上方) -->
-      <div class="timeline-node animate-in" style="position: absolute; left: 20%; top: 50%; transform: translateY(-100%); text-align: center; width: 10.4%;">
-        <!-- 描述 -->
-        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-bottom: 0.5cqw;">{{DESC_2}}</p>
-        <!-- 虚线 -->
-        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
-        <!-- 日期 -->
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 0.5cqw;">{{DATE_2}}</p>
-        <!-- 圆点 -->
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 1cqw auto 0;"></div>
+
+      <!-- Node 2 (上方) - Figma: left 22% -->
+      <div class="animate-in animate-stagger-2" style="position: absolute; left: 22%; bottom: 50%; text-align: center; width: 10.42%;">
+        <!-- Description -->
+        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_2}}</p>
+        <!-- Connector Line -->
+        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+        <!-- Date -->
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 2.08cqw;">{{DATE_2}}</p>
+        <!-- Point -->
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; bottom: -0.625cqw;"></div>
       </div>
-      
-      <!-- Node 3 (下方) -->
-      <div class="timeline-node animate-in" style="position: absolute; left: 40%; top: 50%; transform: translateY(0); text-align: center; width: 10.4%;">
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto 1cqw;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 0.5cqw;">{{DATE_3}}</p>
-        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-top: 0.5cqw;">{{DESC_3}}</p>
+
+      <!-- Node 3 (下方) - Figma: left 44% -->
+      <div class="animate-in animate-stagger-3" style="position: absolute; left: 44%; top: 50%; text-align: center; width: 10.42%;">
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">{{DATE_3}}</p>
+        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_3}}</p>
       </div>
-      
-      <!-- Node 4 (上方) -->
-      <div class="timeline-node animate-in" style="position: absolute; left: 60%; top: 50%; transform: translateY(-100%); text-align: center; width: 10.4%;">
-        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-bottom: 0.5cqw;">{{DESC_4}}</p>
-        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 0.5cqw;">{{DATE_4}}</p>
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 1cqw auto 0;"></div>
+
+      <!-- Node 4 (上方) - Figma: left 65.5% -->
+      <div class="animate-in animate-stagger-4" style="position: absolute; left: 65.5%; bottom: 50%; text-align: center; width: 10.42%;">
+        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_4}}</p>
+        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 2.08cqw;">{{DATE_4}}</p>
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; bottom: -0.625cqw;"></div>
       </div>
-      
-      <!-- Node 5 (下方) -->
-      <div class="timeline-node animate-in" style="position: absolute; left: 80%; top: 50%; transform: translateY(0); text-align: center; width: 10.4%;">
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto 1cqw;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 0.5cqw;">{{DATE_5}}</p>
-        <div style="width: 1px; height: 2.5cqw; border-left: 2px dashed var(--mai-primary-dark-1); opacity: 0.5; margin: 0 auto;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 0.73cqw; color: #343434; line-height: 1.4; margin-top: 0.5cqw;">{{DESC_5}}</p>
+
+      <!-- Node 5 (下方) - Figma: left 87% -->
+      <div class="animate-in" style="position: absolute; left: 87%; top: 50%; text-align: center; width: 10.42%;">
+        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">{{DATE_5}}</p>
+        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_5}}</p>
       </div>
+
     </div>
 
     <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
@@ -1113,6 +1134,290 @@ All positioning values are extracted directly from demo.html which matches the o
 - Screen recordings
 - Prototype demonstrations
 - Tutorial content
+
+---
+
+## 21. Phone Mockup + Article (手机 Mockup + 文章页)
+
+**Figma 精确规格：**
+
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #fef9ed | `var(--mai-primary-light-1)` |
+| 手机 Mockup 位置 | left 183px, top 100px | `left: 9.53%; top: 9.26%` |
+| 手机 Mockup 尺寸 | 452 x 863px | `width: 23.54%; height: 79.9%` |
+| 设备边框颜色 | #1a1a1a | 深灰/黑色 |
+| 设备边框厚度 | ~15px | `0.8cqw` |
+| 设备圆角 (外) | ~48px | `2.5cqw` |
+| 屏幕圆角 (内) | ~35px | `1.8cqw` |
+| 内容区位置 | left 762px (40%), top 100px | `left: 39.69%; top: 9.26%` |
+| 内容区宽度 | 1039px | `width: 54.11%` |
+
+**布局特征：**
+- 左侧单个手机 mockup (**带 CSS 设备边框**)
+- 设备边框使用纯 CSS 实现，包含 notch/刘海
+- 右侧完整文章内容 (标题 + 作者 + 多段正文)
+- 适合详细的功能介绍配合 UI 截图
+
+**重要提示：** 使用 CSS 边框而非图片叠加，确保高级感。
+
+```html
+<div class="slide" data-slide="{{N}}">
+  <div class="slide-inner" style="background-color: var(--mai-primary-light-1);">
+    
+    <!-- Phone Mockup Container with CSS Device Frame -->
+    <div class="animate-in" style="
+      position: absolute; left: 9.53%; top: 9.26%;
+      width: 23.54%; height: 79.9%;
+    ">
+      <!-- Device Frame (CSS border) -->
+      <div style="
+        position: absolute; inset: 0;
+        background: #1a1a1a;
+        border-radius: 2.5cqw;
+        padding: 0.8cqw;
+        box-shadow: 0 0.52cqw 1.25cqw rgba(0,0,0,0.15), 0 2cqw 4cqw rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.1);
+      ">
+        <!-- Screen -->
+        <div style="
+          width: 100%; height: 100%;
+          border-radius: 1.8cqw;
+          overflow: hidden;
+          background: #000;
+        ">
+          <img src="{{PHONE_UI_IMAGE}}" alt="UI Screenshot" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <!-- Notch/Dynamic Island (可选) -->
+        <div style="
+          position: absolute; top: 1.5cqw; left: 50%; transform: translateX(-50%);
+          width: 25%; height: 1.2cqw;
+          background: #1a1a1a;
+          border-radius: 1cqw;
+        "></div>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div style="position: absolute; left: 39.69%; top: 9.26%; width: 54.11%; color: var(--mai-primary-dark-2);">
+      <!-- Title + Author -->
+      <div style="margin-bottom: 2.92cqw;">
+        <p class="mai-title-serif animate-in" style="line-height: 1; letter-spacing: -0.03em; margin-bottom: 1.25cqw;">
+          {{ARTICLE_TITLE}}
+        </p>
+        <p class="mai-caption animate-in" style="opacity: 0.8;">{{AUTHOR}}</p>
+      </div>
+      
+      <!-- Body Text -->
+      <div class="mai-body-small animate-in" style="line-height: 1.4; letter-spacing: -0.02em;">
+        <p style="margin-bottom: 1.5cqw;">{{PARAGRAPH_1}}</p>
+        <p style="margin-bottom: 1.5cqw;">{{PARAGRAPH_2}}</p>
+        <p>{{PARAGRAPH_3}}</p>
+      </div>
+    </div>
+
+    <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+      <span>{{FOOTER_LEFT}}</span>
+      <span>{{FOOTER_CENTER}}</span>
+      <span>{{FOOTER_RIGHT}}</span>
+    </div>
+  </div>
+</div>
+```
+
+**When to use Phone Mockup + Article:**
+- 详细的功能介绍配合单个 UI 截图
+- App feature deep-dive
+- CEO/创始人寄语配合产品界面
+
+---
+
+## 22. Four Phone Gallery (四手机画廊页)
+
+**Figma 精确规格：**
+
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #fef9ed | `var(--mai-primary-light-1)` |
+| 手机宽度 | 393px | `20.47%` |
+| 手机高度 | 756px (统一等高) | `70%` |
+| 圆角 | 28.8px | `1.5cqw` |
+| 阴影 | 多层 shadow | 见下方 CSS |
+| 手机1位置 | left 64px | `left: 3.33%` |
+| 手机2位置 | left 532px | `left: 27.71%` |
+| 手机3位置 | left 1000px | `left: 52.08%` |
+| 手机4位置 | left 1468px | `left: 76.46%` |
+| 标签位置 | top: 90% | 手机底部下方，与 footer 分开 |
+
+**布局特征：**
+- 4个手机 mockup 并排，**等高等宽**
+- 统一大圆角 (1.5cqw) 模拟真实手机
+- 带标题区域 + 分割线
+- 标签在手机下方 (top: 90%)，与 footer 保持距离
+- **不使用瀑布流/错落布局**
+
+**重要提示：** 此模板用于展示 UI 界面，不是图片画廊。所有手机等高，配有底部文字标签。
+
+```html
+<div class="slide" data-slide="{{N}}">
+  <div class="slide-inner" style="background-color: var(--mai-primary-light-1);">
+    
+    <!-- Title with divider -->
+    <div style="position: absolute; left: 3.23%; top: 5%; right: 3.23%; border-bottom: 1px solid var(--mai-primary-dark-2); padding-bottom: 1.5cqw;">
+      <p class="mai-caption-large animate-in" style="color: var(--mai-primary-dark-2); margin-bottom: 0.5cqw;">{{SECTION_LABEL}}</p>
+      <h1 class="mai-title-serif animate-in" style="color: var(--mai-primary-dark-2);">{{TITLE}}</h1>
+    </div>
+
+    <!-- Phone 1 -->
+    <div class="animate-in animate-stagger-1" style="
+      position: absolute; left: 3.33%; top: 18%;
+      width: 20.47%; height: 70%;
+      border-radius: 1.5cqw; overflow: hidden;
+      box-shadow: 0 0.52cqw 1.25cqw rgba(0,0,0,0.08), 0 2cqw 3cqw rgba(0,0,0,0.04);
+    ">
+      <img src="{{PHONE_IMAGE_1}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <p class="mai-caption animate-in animate-stagger-1" style="position: absolute; left: 3.33%; top: 90%; width: 20.47%; text-align: center; color: var(--mai-primary-dark-2);">{{LABEL_1}}</p>
+    
+    <!-- Phone 2 -->
+    <div class="animate-in animate-stagger-2" style="
+      position: absolute; left: 27.71%; top: 18%;
+      width: 20.47%; height: 70%;
+      border-radius: 1.5cqw; overflow: hidden;
+      box-shadow: 0 0.52cqw 1.25cqw rgba(0,0,0,0.08), 0 2cqw 3cqw rgba(0,0,0,0.04);
+    ">
+      <img src="{{PHONE_IMAGE_2}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <p class="mai-caption animate-in animate-stagger-2" style="position: absolute; left: 27.71%; top: 90%; width: 20.47%; text-align: center; color: var(--mai-primary-dark-2);">{{LABEL_2}}</p>
+    
+    <!-- Phone 3 -->
+    <div class="animate-in animate-stagger-3" style="
+      position: absolute; left: 52.08%; top: 18%;
+      width: 20.47%; height: 70%;
+      border-radius: 1.5cqw; overflow: hidden;
+      box-shadow: 0 0.52cqw 1.25cqw rgba(0,0,0,0.08), 0 2cqw 3cqw rgba(0,0,0,0.04);
+    ">
+      <img src="{{PHONE_IMAGE_3}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <p class="mai-caption animate-in animate-stagger-3" style="position: absolute; left: 52.08%; top: 90%; width: 20.47%; text-align: center; color: var(--mai-primary-dark-2);">{{LABEL_3}}</p>
+    
+    <!-- Phone 4 -->
+    <div class="animate-in animate-stagger-4" style="
+      position: absolute; left: 76.46%; top: 18%;
+      width: 20.47%; height: 70%;
+      border-radius: 1.5cqw; overflow: hidden;
+      box-shadow: 0 0.52cqw 1.25cqw rgba(0,0,0,0.08), 0 2cqw 3cqw rgba(0,0,0,0.04);
+    ">
+      <img src="{{PHONE_IMAGE_4}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <p class="mai-caption animate-in animate-stagger-4" style="position: absolute; left: 76.46%; top: 90%; width: 20.47%; text-align: center; color: var(--mai-primary-dark-2);">{{LABEL_4}}</p>
+
+    <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-2);">
+      <span>{{FOOTER_LEFT}}</span>
+      <span>{{FOOTER_CENTER}}</span>
+      <span>{{FOOTER_RIGHT}}</span>
+    </div>
+  </div>
+</div>
+```
+
+**When to use Four Phone Gallery:**
+- 展示多个 UI 界面/流程 (需要底部文字标签)
+- App 功能概览
+- 设计变体对比
+- 用户旅程的关键屏幕
+
+---
+
+## 23. Text + Two Phone Mockups (文字 + 双手机页)
+
+**Figma 精确规格：**
+
+| 元素 | Figma 值 | CSS 值 |
+|------|----------|--------|
+| 背景 | #e1dbc6 (较深) | `var(--mai-primary-light-3)` 或自定义 |
+| 内容区位置 | left 64px | `left: 3.33%` |
+| 内容区宽度 | 724px | `width: 37.71%` |
+| 手机1位置 | left 988px (50%+28px) | `left: 51.46%` |
+| 手机2位置 | left 1454px (75%+14px) | `left: 75.73%` |
+| 手机尺寸 | 407 x 880px | `width: 21.2%; height: 81.48%` |
+| 手机圆角 | 16px | `0.833cqw` |
+| 头像堆叠 | 80px, -12px overlap | 同其他模板 |
+
+**布局特征：**
+- 左侧完整内容区 (Team name + 标题 + Lead text + 正文 + 头像)
+- 右侧两个手机 mockup 并排
+- 背景色较深 (#e1dbc6)
+- 手机有较大圆角 (16px)
+
+```html
+<div class="slide" data-slide="{{N}}">
+  <div class="slide-inner" style="background-color: #e1dbc6;">
+    
+    <!-- Content Area (左侧) -->
+    <div style="position: absolute; left: 3.33%; top: 50%; transform: translateY(-50%); width: 37.71%; color: var(--mai-primary-dark-3);">
+      <!-- Team Name -->
+      <p class="mai-caption-large animate-in" style="margin-bottom: 2cqw; letter-spacing: -0.03em;">{{TEAM_NAME}}</p>
+      
+      <!-- Title -->
+      <p class="mai-title-serif animate-in" style="margin-bottom: 2cqw;">{{TITLE}}</p>
+      
+      <!-- Lead Text -->
+      <p class="mai-body-large animate-in" style="margin-bottom: 2cqw; line-height: 1.2; letter-spacing: -0.03em;">{{LEAD_TEXT}}</p>
+      
+      <!-- Body Paragraphs -->
+      <div class="mai-body-small animate-in" style="line-height: 1.4; letter-spacing: -0.02em;">
+        <p style="margin-bottom: 1cqw;">{{PARAGRAPH_1}}</p>
+        <p style="margin-bottom: 1cqw;">{{PARAGRAPH_2}}</p>
+        <p>{{PARAGRAPH_3}}</p>
+      </div>
+      
+      <!-- Avatar Stack -->
+      <div class="mai-avatar-stack" style="margin-top: 2cqw;">
+        <div class="mai-avatar" style="border-color: #e1dbc6;">
+          <img src="{{AVATAR_1}}" alt="">
+        </div>
+        <div class="mai-avatar" style="border-color: #e1dbc6;">
+          <img src="{{AVATAR_2}}" alt="">
+        </div>
+        <div class="mai-avatar" style="border-color: #e1dbc6;">
+          <img src="{{AVATAR_3}}" alt="">
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone Mockup 1 -->
+    <div class="animate-in-right" style="
+      position: absolute; left: 51.46%; top: 9.35%; 
+      width: 21.2%; height: 81.48%; 
+      border-radius: 0.833cqw; overflow: hidden;
+      box-shadow: 0 0.52cqw 1.25cqw rgba(0,0,0,0.08), 0 2cqw 3cqw rgba(0,0,0,0.04);
+    ">
+      <img src="{{PHONE_IMAGE_1}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    
+    <!-- Phone Mockup 2 -->
+    <div class="animate-in-right" style="
+      position: absolute; left: 75.73%; top: 9.35%; 
+      width: 21.2%; height: 81.48%; 
+      border-radius: 0.833cqw; overflow: hidden;
+      box-shadow: 0 0.52cqw 1.25cqw rgba(0,0,0,0.08), 0 2cqw 3cqw rgba(0,0,0,0.04);
+    ">
+      <img src="{{PHONE_IMAGE_2}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <div class="mai-footer mai-caption" style="color: var(--mai-primary-dark-3);">
+      <span>{{FOOTER_LEFT}}</span>
+      <span>{{FOOTER_CENTER}}</span>
+      <span>{{FOOTER_RIGHT}}</span>
+    </div>
+  </div>
+</div>
+```
+
+**When to use Text + Two Phone Mockups:**
+- 功能介绍配合两个相关 UI
+- 对比展示 (前后 / A-B 版本)
+- 团队项目展示配合界面截图
 
 ---
 

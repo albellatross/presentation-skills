@@ -68,6 +68,9 @@ Setup → Tension → Discovery → Insight → Resolution → Action
 | 3-4个并列主题 | Analysis (#15) — **Vertical Text 阅读性差** | ❌ 列表形式 |
 | 路线图/里程碑 | Timeline (#19) | ❌ 纯文字列表 |
 | Demo视频/产品演示 | Content+Video (#20) | ❌ 静态截图 |
+| 单UI详细介绍 | Phone Mockup+Article (#21) | ❌ Content+Image |
+| 多UI界面展示 | Four Phone Gallery (#22) | ❌ Image Gallery |
+| 功能+双UI对比 | Text+Two Phones (#23) | ❌ Four Image Grid |
 
 **详细匹配规则见:** `.claude/skills/template-matching-guide.md`
 

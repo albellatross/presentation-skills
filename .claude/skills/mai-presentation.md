@@ -329,7 +329,7 @@ For side-by-side comparisons:
 
 ## Template Library
 
-**20 templates from Figma source file - ALL positions are pixel-perfect:**
+**23 templates from Figma source file - ALL positions are pixel-perfect:**
 
 | # | Template | Background | Figma Key Positions |
 |---|----------|------------|---------------------|
@@ -353,6 +353,9 @@ For side-by-side comparisons:
 | 18 | Vertical Text | #ffeecc | Font: 6.14cqw, gap 1.667cqw — **谨慎使用，阅读性差** |
 | 19 | Timeline | #fef9ed | 水平时间轴，节点交替上下分布 — **路线图/里程碑** |
 | 20 | Content+Video | #fef9ed | Video: left 8.33%, top 12%, width 83.33% — **Demo 视频** |
+| 21 | Phone Mockup+Article | #fef9ed | Phone: left 9.53%, 23.54%宽; Content: left 39.69% — **UI详细介绍** |
+| 22 | Four Phone Gallery | #fef9ed | 4个手机mockup并排，中间突出 — **多界面展示** |
+| 23 | Text+Two Phones | #e1dbc6 | Content: left 3.33%; Phones: left 51.46%/75.73% — **功能+双UI** |
 
 ### Quote (#17) vs Statement (#12) — 关键区分
 
