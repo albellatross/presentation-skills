@@ -6,10 +6,10 @@ This project contains tools for generating professional HTML presentations follo
 
 When a user provides a Word document, outline, or content to convert into a presentation:
 
-1. Read the skill documentation: `.claude/skills/mai-presentation.md`
-2. **Read the template matching guide: `.claude/skills/template-matching-guide.md`** (CRITICAL for correct template selection)
-3. Use the base template: `templates/base-template.html`
-4. Reference slide templates: `templates/slide-templates.md`
+1. Use the skill: `.claude/skills/mai-presentation/SKILL.md`
+2. Reference templates: `.claude/skills/mai-presentation/references/SLIDE-TEMPLATES.md`
+3. Match templates by purpose: `.claude/skills/mai-presentation/references/TEMPLATE-MATCHING.md`
+4. Use base template: `templates/base-template.html`
 5. Output to a new HTML file in the project root
 
 ## Workflow
@@ -27,32 +27,7 @@ User Content → Extract Story → Build Narrative Arc → Design Hierarchy → 
 2. **Hierarchy Matters** - Not all information is equal; make important things LOOK important
 3. **Rhythm Creates Impact** - Alternate dense slides with breathing room
 
-## Key Principles
-
-### Narrative Arc
-Structure content as:
-```
-Setup → Tension → Discovery → Insight → Resolution → Action
-```
-
-### Information Hierarchy
-
-| Level | What | Visual Treatment |
-|-------|------|------------------|
-| **L1: Core Insight** | 3-5 things audience MUST remember | Big Number, Statement slide |
-| **L2: Evidence** | Data/quotes that prove L1 | Quote, Data Cards |
-| **L3: Context** | Background to understand L1 | Body text, smaller type |
-| **L4: Detail** | Nice-to-know | Omit or appendix |
-
-### Breathing Rhythm
-
-**Dense → Breathe → Dense → Breathe**
-
-- After 2-3 dense slides, insert a breathing slide
-- **Breathing slides:** Statement, Section Title, Quote, Big Number
-- **Dense slides:** Analysis, Two Column, Data Cards
-
-### Content Mapping
+## Content Mapping
 
 **按内容目的选择模板，不是按内容形式：**
 
@@ -67,7 +42,7 @@ Setup → Tension → Discovery → Insight → Resolution → Action
 | 图文并重的案例 | Article+Image (#16) | ❌ 只用 Content+Image |
 | 3-4个并列主题 | Vertical Text (#18) | ❌ 列表形式 |
 
-**详细匹配规则见:** `.claude/skills/template-matching-guide.md`
+**详细匹配规则见:** `.claude/skills/mai-presentation/references/TEMPLATE-MATCHING.md`
 
 ### Visual Rules
 - **Never** use same template type consecutively
@@ -82,70 +57,26 @@ Setup → Tension → Discovery → Insight → Resolution → Action
 - Dark bg → Light text (#ffeecc)
 - Accent: #e5b85c (gold) for highlights and L1 emphasis
 
-### Color Consistency Rules (NEW)
-- **Section内统一** — 同一章节的slides保持视觉连贯
-- **禁止互补色** — 不要红+绿、蓝+橙等刺眼组合
-- **禁止颜色跳跃** — 相邻slides不要剧烈变色
-- **Accessibility** — 确保对比度≥4.5:1，深色背景加 `.text-readable`
-
-**详细颜色规范见:** `.claude/skills/template-matching-guide.md`
-
-## Data Visualization
-
-### Progress Bars (Pill-shaped Capsule)
-```html
-<!-- Basic (light bg) -->
-<div class="mai-progress">
-  <div class="mai-progress-fill mai-progress-fill-accent animate-bar" style="--bar-width: 85%;"></div>
-</div>
-
-<!-- Dark background variant -->
-<div class="mai-progress mai-progress-dark">
-  <div class="mai-progress-fill mai-progress-fill-accent animate-bar" style="--bar-width: 85%;"></div>
-</div>
-
-<!-- With label -->
-<div class="mai-progress-labeled">
-  <div class="mai-progress-label">
-    <span class="mai-progress-label-text">Metric Name</span>
-    <span class="mai-progress-label-value">85%</span>
-  </div>
-  <div class="mai-progress">
-    <div class="mai-progress-fill mai-progress-fill-accent animate-bar" style="--bar-width: 85%;"></div>
-  </div>
-</div>
-```
-
-### Fill Variants
-- `.mai-progress-fill` - Default dark brown
-- `.mai-progress-fill-accent` - Gold (#e5b85c)
-- `.mai-progress-fill-light` - Light gradient for dark backgrounds
-
-### Big Numbers
-```html
-<p class="data-number">80%</p>           <!-- 8cqw - hero metrics -->
-<p class="data-number-medium">42</p>      <!-- 5cqw - numbered lists -->
-```
-
-### Data Cards
-- `.data-card` - Dark/transparent (for image bg)
-- `.data-card-light` - Light variant (for light bg)
-
 ## File Structure
 
 ```
 /
 ├── .claude/
 │   └── skills/
-│       └── mai-presentation.md    # Full skill documentation
+│       └── mai-presentation/       # Main skill (Agent Skills format)
+│           ├── SKILL.md            # Skill definition & instructions
+│           ├── references/
+│           │   ├── TEMPLATE-MATCHING.md  # Template selection guide
+│           │   ├── SLIDE-TEMPLATES.md    # HTML snippets
+│           │   └── DESIGN-REFERENCE.md   # Colors, typography, motion
+│           └── assets/
 ├── templates/
-│   ├── base-template.html         # Base HTML structure
-│   └── slide-templates.md         # Copy-paste slide snippets
+│   └── base-template.html          # Base HTML structure
 ├── MAI Design Skill/
 │   └── asset/
-│       └── Images/                # Background & placeholder images
-├── demo.html                      # Template showcase (reference)
-└── [output].html                  # Generated presentations
+│       └── Images/                 # Background & placeholder images
+├── demo.html                       # Template showcase (reference)
+└── [output].html                   # Generated presentations
 ```
 
 ## Available Images
