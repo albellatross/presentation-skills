@@ -742,22 +742,27 @@
 | 时间轴容器宽度 | 1795px (93.5%) | `width: 93.5%` |
 | 时间轴容器高度 | 270px (25%) | `height: 25%` |
 | 时间轴线位置 | 居中 (50%) | `top: 50%` |
-| 节点圆点 | 24px (#e5b85c) | `1.25cqw`, `var(--mai-yellow-3)` |
+| 时间轴线颜色 | #FDE095 | `background: #FDE095` |
+| **节点圆点** | **24px SVG 素材** | `Point.svg`, `1.25cqw` |
 | 日期字体 | Poppins Bold | `var(--mai-font-sans); font-weight: 700` |
 | 日期字号 | 24px | `1.25cqw` |
 | 日期颜色 | #5f4e41 | `var(--mai-primary-dark-2)` |
 | 描述字体 | Poppins Regular | `var(--mai-font-sans)` |
 | 描述字号 | 14px | `0.729cqw` |
 | 描述颜色 | #343434 | `#343434` |
-| 节点宽度 | 200px (10.42%) | `width: 10.42%` |
-| 连接线 | 49px 虚线 | `height: 2.55cqw`, dashed |
-| 节点位置 | 0.33%, 22%, 44%, 65.5%, 87% | Figma exact |
+| 节点宽度 | 200px (11.2%) | `width: 11.2%` |
+| 连接线 | 49px 虚线 | `height: 2.55cqw`, CSS gradient |
+| 节点位置 | 0%, 21.8%, 43.6%, 65.4%, 87.2% | Figma exact |
+
+**Timeline 素材文件 (位于 `MAI Design Skill/asset/Images/`):**
+- `Point.svg` - 节点圆点 (24px 金色环 + 实心圆，颜色 #FDE095)
 
 **布局特征 (Figma 精确还原):**
 - 节点交替分布在时间轴上下
-- **下方节点 (1, 3, 5):** 圆点 → 日期 → 虚线 → 描述 (使用 `top: 50%`)
-- **上方节点 (2, 4):** 描述 → 虚线 → 日期 → 圆点 (使用 `bottom: 50%`)
-- 虚线使用 CSS gradient 实现: `repeating-linear-gradient(to bottom, color 0, color 4px, transparent 4px, transparent 8px)`
+- **圆点位置:** 绝对定位在时间轴线上 (`top: 50%; left: 50%; transform: translate(-50%, -50%)`)
+- **下方节点 (1, 3, 5):** 内容在 `top: 50%` 下方，顺序: 日期 → 虚线 → 描述
+- **上方节点 (2, 4):** 内容在 `bottom: 50%` 上方，顺序: 描述 → 虚线 → 日期
+- 虚线使用 CSS gradient: `repeating-linear-gradient(to bottom, color 0, color 4px, transparent 4px, transparent 8px)`
 
 **适用内容:**
 - 产品路线图 / 发布计划
@@ -781,25 +786,35 @@
   <!-- Timeline Container -->
   <div style="position: absolute; left: 3.33%; top: 37.5%; width: 93.5%; height: 25%;">
     <!-- Horizontal Line -->
-    <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--mai-primary-dark-1);"></div>
+    <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #FDE095;"></div>
     
-    <!-- Node 1 (下方) -->
-    <div style="position: absolute; left: 0.33%; top: 50%; text-align: center; width: 10.42%;">
-      <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
-      <p style="font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">{{DATE}}</p>
-      <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(...); opacity: 0.5; margin: 0.625cqw auto;"></div>
-      <p style="font-size: 0.729cqw; color: #343434;">{{DESC}}</p>
+    <!-- Node (下方) -->
+    <div style="position: absolute; left: 0%; width: 11.2%; text-align: center;">
+      <!-- Point on timeline -->
+      <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="
+        position: absolute; left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        width: 1.25cqw; height: 1.25cqw;
+      ">
+      <!-- Content below line -->
+      <div style="position: absolute; top: 50%; left: 0; right: 0; padding-top: 2cqw;">
+        <p style="font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">{{DATE}}</p>
+        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(...); opacity: 0.5; margin: 0.625cqw auto;"></div>
+        <p style="font-size: 0.729cqw; color: #343434;">{{DESC}}</p>
+      </div>
     </div>
     
-    <!-- Node 2 (上方) -->
-    <div style="position: absolute; left: 22%; bottom: 50%; text-align: center; width: 10.42%;">
-      <p style="font-size: 0.729cqw; color: #343434;">{{DESC}}</p>
-      <div style="...dashed line..."></div>
-      <p style="font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 2.08cqw;">{{DATE}}</p>
-      <div style="...circle..."></div>
+    <!-- Node (上方) -->
+    <div style="position: absolute; left: 21.8%; width: 11.2%; text-align: center;">
+      <!-- Point on timeline -->
+      <img src="MAI Design Skill/asset/Images/timeline-point.png" alt="" style="...same as above...">
+      <!-- Content above line -->
+      <div style="position: absolute; bottom: 50%; left: 0; right: 0; padding-bottom: 2cqw;">
+        <p style="font-size: 0.729cqw; color: #343434; margin-bottom: 0.625cqw;">{{DESC}}</p>
+        <div style="...dashed line..."></div>
+        <p style="font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">{{DATE}}</p>
+      </div>
     </div>
-    
-    <!-- 继续 Node 3, 4, 5... -->
   </div>
 </div>
 ```

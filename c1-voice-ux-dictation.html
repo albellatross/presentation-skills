@@ -937,75 +937,110 @@
           ">Delivery Timeline</p>
         </div>
 
-        <!-- Timeline Container - Figma: left 64px, top 405px (37.5%), width 1795px, height 270px -->
+        <!-- Timeline Container - Figma: left 64px, top 405px, width 1795px, height 270px -->
+        <!-- 在 1920px 宽度中: left=3.33%, width=93.5%, top=37.5%, height=25% -->
         <div style="position: absolute; left: 3.33%; top: 37.5%; width: 93.5%; height: 25%;">
 
-          <!-- Horizontal Timeline Line - Figma: at 50% of container (135px) -->
-          <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--mai-primary-dark-1);"></div>
+          <!-- Horizontal Timeline Line - Figma: at 135px (50% of 270px container) -->
+          <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #FDE095;"></div>
+
+          <!--
+            Figma 节点位置 (相对于 1789px 内部容器):
+            - Node 1 (下方): left=0 (0%)
+            - Node 2 (上方): left=390px (21.8%)
+            - Node 3 (下方): left=780px (43.6%)
+            - Node 4 (上方): left=1170px (65.4%)
+            - Node 5 (下方): left=1560px (87.2%)
+
+            节点宽度: 200px (11.2%)
+
+            下方节点结构: 日期 → 虚线 → 描述 (圆点在时间轴线上)
+            上方节点结构: 描述 → 虚线 → 日期 (圆点在时间轴线上)
+          -->
 
           <!-- Node 1 (下方): C1S1 - Design Lock -->
-          <!-- Figma: left 0, content below line -->
-          <div class="animate-in animate-stagger-1" style="position: absolute; left: 0.33%; top: 50%; text-align: center; width: 10.42%;">
-            <!-- Point - Figma: 24px circle -->
-            <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
-            <!-- Date - Figma: Poppins Bold 24px -->
-            <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">C1S1</p>
-            <!-- Connector Line - Figma: 49px dashed -->
-            <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-            <!-- Description - Figma: Poppins Regular 14px -->
-            <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">Design Lock</p>
+          <div class="animate-in animate-stagger-1" style="position: absolute; left: 0%; width: 11.2%; height: 100%; text-align: center;">
+            <!-- Point on timeline (absolute positioned at 50%) -->
+            <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="
+              position: absolute;
+              left: 50%; top: 50%;
+              transform: translate(-50%, -50%);
+              width: 1.25cqw; height: 1.25cqw;
+            ">
+            <!-- Content below line -->
+            <div style="position: absolute; top: 50%; left: 0; right: 0; padding-top: 2cqw;">
+              <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">C1S1</p>
+              <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+              <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">Design Lock</p>
+            </div>
           </div>
 
           <!-- Node 2 (上方): C1S3 - Dogfood -->
-          <!-- Figma: left 396px (22%), content above line -->
-          <div class="animate-in animate-stagger-2" style="position: absolute; left: 22%; bottom: 50%; text-align: center; width: 10.42%;">
-            <!-- Description -->
-            <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">Dogfood Release</p>
-            <!-- Connector Line -->
-            <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-            <!-- Date -->
-            <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 2.08cqw;">C1S3</p>
-            <!-- Point -->
-            <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; bottom: -0.625cqw;"></div>
+          <div class="animate-in animate-stagger-2" style="position: absolute; left: 21.8%; width: 11.2%; height: 100%; text-align: center;">
+            <!-- Point on timeline -->
+            <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="
+              position: absolute;
+              left: 50%; top: 50%;
+              transform: translate(-50%, -50%);
+              width: 1.25cqw; height: 1.25cqw;
+            ">
+            <!-- Content above line -->
+            <div style="position: absolute; bottom: 50%; left: 0; right: 0; padding-bottom: 2cqw;">
+              <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4; margin-bottom: 0.625cqw;">Dogfood Release</p>
+              <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0 auto 0.625cqw;"></div>
+              <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">C1S3</p>
+            </div>
           </div>
 
           <!-- Node 3 (下方): C1S4 - Flight -->
-          <!-- Figma: left 786px (44%), content below line -->
-          <div class="animate-in animate-stagger-3" style="position: absolute; left: 44%; top: 50%; text-align: center; width: 10.42%;">
-            <!-- Point -->
-            <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
-            <!-- Date -->
-            <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">C1S4</p>
-            <!-- Connector Line -->
-            <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-            <!-- Description -->
-            <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">Flight Release</p>
+          <div class="animate-in animate-stagger-3" style="position: absolute; left: 43.6%; width: 11.2%; height: 100%; text-align: center;">
+            <!-- Point on timeline -->
+            <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="
+              position: absolute;
+              left: 50%; top: 50%;
+              transform: translate(-50%, -50%);
+              width: 1.25cqw; height: 1.25cqw;
+            ">
+            <!-- Content below line -->
+            <div style="position: absolute; top: 50%; left: 0; right: 0; padding-top: 2cqw;">
+              <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">C1S4</p>
+              <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+              <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">Flight Release</p>
+            </div>
           </div>
 
           <!-- Node 4 (上方): Early C2 - GA -->
-          <!-- Figma: left 1176px (65.5%), content above line -->
-          <div class="animate-in animate-stagger-4" style="position: absolute; left: 65.5%; bottom: 50%; text-align: center; width: 10.42%;">
-            <!-- Description -->
-            <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">General Availability</p>
-            <!-- Connector Line -->
-            <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-            <!-- Date -->
-            <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 2.08cqw;">Early C2</p>
-            <!-- Point -->
-            <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; bottom: -0.625cqw;"></div>
+          <div class="animate-in animate-stagger-4" style="position: absolute; left: 65.4%; width: 11.2%; height: 100%; text-align: center;">
+            <!-- Point on timeline -->
+            <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="
+              position: absolute;
+              left: 50%; top: 50%;
+              transform: translate(-50%, -50%);
+              width: 1.25cqw; height: 1.25cqw;
+            ">
+            <!-- Content above line -->
+            <div style="position: absolute; bottom: 50%; left: 0; right: 0; padding-bottom: 2cqw;">
+              <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4; margin-bottom: 0.625cqw;">General Availability</p>
+              <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0 auto 0.625cqw;"></div>
+              <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">Early C2</p>
+            </div>
           </div>
 
           <!-- Node 5 (下方): C2 - Full Rollout -->
-          <!-- Figma: left 1566px (87%), content below line -->
-          <div class="animate-in" style="position: absolute; left: 87%; top: 50%; text-align: center; width: 10.42%;">
-            <!-- Point -->
-            <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
-            <!-- Date -->
-            <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">C2</p>
-            <!-- Connector Line -->
-            <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-            <!-- Description -->
-            <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">Full Rollout</p>
+          <div class="animate-in" style="position: absolute; left: 87.2%; width: 11.2%; height: 100%; text-align: center;">
+            <!-- Point on timeline -->
+            <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="
+              position: absolute;
+              left: 50%; top: 50%;
+              transform: translate(-50%, -50%);
+              width: 1.25cqw; height: 1.25cqw;
+            ">
+            <!-- Content below line -->
+            <div style="position: absolute; top: 50%; left: 0; right: 0; padding-top: 2cqw;">
+              <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">C2</p>
+              <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+              <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">Full Rollout</p>
+            </div>
           </div>
 
         </div>

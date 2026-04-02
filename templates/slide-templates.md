@@ -952,21 +952,27 @@ All positioning values are extracted directly from demo.html which matches the o
 | 标题字号 | 46px | `2.396cqw` |
 | 时间轴容器 | left 64px, top 405px, width 1795px, height 270px | `left: 3.33%; top: 37.5%; width: 93.5%; height: 25%` |
 | 时间轴线 | 居中 (50%) | `top: 50%` |
-| 节点圆点 | 24px 金色圆 | `1.25cqw`, `var(--mai-yellow-3)` |
+| 时间轴线颜色 | #FDE095 | `background: #FDE095` |
+| **节点圆点** | **24px SVG 素材** | `Point.svg`, `1.25cqw` |
 | 日期字体 | Poppins Bold | `var(--mai-font-sans); font-weight: 700` |
 | 日期字号 | 24px | `1.25cqw` |
 | 日期颜色 | #5f4e41 | `var(--mai-primary-dark-2)` |
 | 描述字体 | Poppins Regular | `var(--mai-font-sans)` |
 | 描述字号 | 14px | `0.729cqw` |
 | 描述颜色 | #343434 | `#343434` |
-| 节点宽度 | 200px | `10.42%` |
-| 连接线 | 49px 虚线 | `2.55cqw`, dashed |
+| 节点宽度 | 200px (11.2%) | `width: 11.2%` |
+| 连接线 | 49px 虚线 | `2.55cqw`, CSS gradient |
+| 节点位置 | 0%, 21.8%, 43.6%, 65.4%, 87.2% | Figma exact |
+
+**Timeline 素材文件 (位于 `MAI Design Skill/asset/Images/`):**
+- `Point.svg` - 节点圆点 (24px 金色环 + 实心圆，颜色 #FDE095)
 
 **布局特征 (Figma 精确还原)：**
 - 节点交替分布在时间轴上下
-- **下方节点 (1, 3, 5):** 圆点 → 日期 → 虚线 → 描述
-- **上方节点 (2, 4):** 描述 → 虚线 → 日期 → 圆点
-- 使用 `top: 50%` / `bottom: 50%` 实现上下定位
+- **圆点位置:** 绝对定位在时间轴线上 (`top: 50%; left: 50%; transform: translate(-50%, -50%)`)
+- **下方节点 (1, 3, 5):** 内容在 `top: 50%` 下方
+- **上方节点 (2, 4):** 内容在 `bottom: 50%` 上方
+- 虚线使用 CSS gradient: `repeating-linear-gradient(to bottom, color 0, color 4px, transparent 4px, transparent 8px)`
 
 ```html
 <div class="slide" data-slide="{{N}}">
@@ -974,9 +980,7 @@ All positioning values are extracted directly from demo.html which matches the o
     
     <!-- Title Area - Figma: left 62px, top 100px -->
     <div style="position: absolute; left: 3.23%; top: 9.26%; width: 93.6%;">
-      <!-- Divider Line -->
       <hr class="animate-in" style="border: none; border-top: 1px solid var(--mai-primary-dark-2); opacity: 0.3; margin-bottom: 2.08cqw;">
-      <!-- Title - Figma: Abhaya Libre Medium, 46px -->
       <p class="animate-in" style="
         font-family: var(--mai-font-serif);
         font-size: 2.396cqw;
@@ -987,58 +991,70 @@ All positioning values are extracted directly from demo.html which matches the o
       ">{{TIMELINE_TITLE}}</p>
     </div>
 
-    <!-- Timeline Container - Figma: left 64px, top 405px (37.5%), width 1795px, height 270px -->
+    <!-- Timeline Container -->
     <div style="position: absolute; left: 3.33%; top: 37.5%; width: 93.5%; height: 25%;">
+      <!-- Horizontal Timeline Line -->
+      <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #FDE095;"></div>
 
-      <!-- Horizontal Timeline Line - Figma: at 50% of container -->
-      <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--mai-primary-dark-1);"></div>
-
-      <!-- Node 1 (下方) - Figma: left 0 -->
-      <div class="animate-in animate-stagger-1" style="position: absolute; left: 0.33%; top: 50%; text-align: center; width: 10.42%;">
-        <!-- Point - Figma: 24px circle -->
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
-        <!-- Date - Figma: Poppins Bold 24px -->
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">{{DATE_1}}</p>
-        <!-- Connector Line - Figma: 49px dashed -->
-        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-        <!-- Description - Figma: Poppins Regular 14px -->
-        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_1}}</p>
+      <!-- Node 1 (下方) - left: 0% -->
+      <div class="animate-in animate-stagger-1" style="position: absolute; left: 0%; width: 11.2%; text-align: center;">
+        <!-- Point on timeline -->
+        <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="
+          position: absolute; left: 50%; top: 50%;
+          transform: translate(-50%, -50%);
+          width: 1.25cqw; height: 1.25cqw;
+        ">
+        <!-- Content below line -->
+        <div style="position: absolute; top: 50%; left: 0; right: 0; padding-top: 2cqw;">
+          <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">{{DATE_1}}</p>
+          <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+          <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_1}}</p>
+        </div>
       </div>
 
-      <!-- Node 2 (上方) - Figma: left 22% -->
-      <div class="animate-in animate-stagger-2" style="position: absolute; left: 22%; bottom: 50%; text-align: center; width: 10.42%;">
-        <!-- Description -->
-        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_2}}</p>
-        <!-- Connector Line -->
-        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-        <!-- Date -->
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 2.08cqw;">{{DATE_2}}</p>
-        <!-- Point -->
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; bottom: -0.625cqw;"></div>
+      <!-- Node 2 (上方) - left: 21.8% -->
+      <div class="animate-in animate-stagger-2" style="position: absolute; left: 21.8%; width: 11.2%; text-align: center;">
+        <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="
+          position: absolute; left: 50%; top: 50%;
+          transform: translate(-50%, -50%);
+          width: 1.25cqw; height: 1.25cqw;
+        ">
+        <!-- Content above line -->
+        <div style="position: absolute; bottom: 50%; left: 0; right: 0; padding-bottom: 2cqw;">
+          <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4; margin-bottom: 0.625cqw;">{{DESC_2}}</p>
+          <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0 auto 0.625cqw;"></div>
+          <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">{{DATE_2}}</p>
+        </div>
       </div>
 
-      <!-- Node 3 (下方) - Figma: left 44% -->
-      <div class="animate-in animate-stagger-3" style="position: absolute; left: 44%; top: 50%; text-align: center; width: 10.42%;">
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">{{DATE_3}}</p>
-        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_3}}</p>
+      <!-- Node 3 (下方) - left: 43.6% -->
+      <div class="animate-in animate-stagger-3" style="position: absolute; left: 43.6%; width: 11.2%; text-align: center;">
+        <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 1.25cqw; height: 1.25cqw;">
+        <div style="position: absolute; top: 50%; left: 0; right: 0; padding-top: 2cqw;">
+          <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">{{DATE_3}}</p>
+          <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+          <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_3}}</p>
+        </div>
       </div>
 
-      <!-- Node 4 (上方) - Figma: left 65.5% -->
-      <div class="animate-in animate-stagger-4" style="position: absolute; left: 65.5%; bottom: 50%; text-align: center; width: 10.42%;">
-        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_4}}</p>
-        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-bottom: 2.08cqw;">{{DATE_4}}</p>
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; bottom: -0.625cqw;"></div>
+      <!-- Node 4 (上方) - left: 65.4% -->
+      <div class="animate-in animate-stagger-4" style="position: absolute; left: 65.4%; width: 11.2%; text-align: center;">
+        <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 1.25cqw; height: 1.25cqw;">
+        <div style="position: absolute; bottom: 50%; left: 0; right: 0; padding-bottom: 2cqw;">
+          <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4; margin-bottom: 0.625cqw;">{{DESC_4}}</p>
+          <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0 auto 0.625cqw;"></div>
+          <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">{{DATE_4}}</p>
+        </div>
       </div>
 
-      <!-- Node 5 (下方) - Figma: left 87% -->
-      <div class="animate-in" style="position: absolute; left: 87%; top: 50%; text-align: center; width: 10.42%;">
-        <div style="width: 1.25cqw; height: 1.25cqw; background: var(--mai-yellow-3); border-radius: 50%; margin: 0 auto; position: relative; top: -0.625cqw;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2); margin-top: 2.08cqw;">{{DATE_5}}</p>
-        <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
-        <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_5}}</p>
+      <!-- Node 5 (下方) - left: 87.2% -->
+      <div class="animate-in" style="position: absolute; left: 87.2%; width: 11.2%; text-align: center;">
+        <img src="MAI Design Skill/asset/Images/Point.svg" alt="" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 1.25cqw; height: 1.25cqw;">
+        <div style="position: absolute; top: 50%; left: 0; right: 0; padding-top: 2cqw;">
+          <p style="font-family: var(--mai-font-sans); font-size: 1.25cqw; font-weight: 700; color: var(--mai-primary-dark-2);">{{DATE_5}}</p>
+          <div style="width: 2px; height: 2.55cqw; background: repeating-linear-gradient(to bottom, var(--mai-primary-dark-1) 0, var(--mai-primary-dark-1) 4px, transparent 4px, transparent 8px); opacity: 0.5; margin: 0.625cqw auto;"></div>
+          <p style="font-family: var(--mai-font-sans); font-size: 0.729cqw; color: #343434; line-height: 1.4;">{{DESC_5}}</p>
+        </div>
       </div>
 
     </div>
